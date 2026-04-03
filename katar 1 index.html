@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Posting RW 05</title>
+    <style>
+        /* --- CSS Tetap Sama --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .form-box { background: white; width: 100%; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        h2 { color: #ff7a00; text-align: center; margin-bottom: 25px; font-size: 24px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #444; font-size: 14px; }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+            font-size: 15px;
+            background: white;
+        }
+        input:focus, textarea:focus, select:focus { border-color: #ff7a00; }
+        textarea { height: 100px; resize: none; }
+        input[type="file"] { width: 100%; padding: 10px; background: #fff8f0; border: 1px dashed #ff7a00; border-radius: 10px; cursor: pointer; }
+        button { width: 100%; padding: 15px; background: #ff7a00; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { background: #e66e00; transform: translateY(-2px); }
+        .back-link { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #888; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>📢 Posting Baru</h2>
+    
+    <form id="uploadForm">
+        <div class="input-group">
+            <label>Pilih Kategori Upload</label>
+            <select id="category" required>
+                <option value="" disabled selected>-- Pilih Tujuan --</option>
+                <option value="berita">Berita Terbaru</option>
+                <option value="kegiatan">Kegiatan (Galeri)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Judul</label>
+            <input type="text" id="title" placeholder="Masukkan judul..." required>
+        </div>
+
+        <div class="input-group">
+            <label>Deskripsi / Keterangan</label>
+            <textarea id="desc" placeholder="Tuliskan detail di sini..." required></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Foto Dokumentasi</label>
+            <input type="file" id="image" accept="image/*" required>
+        </div>
+
+        <button type="submit" id="btnSubmit">Kirim ke Beranda</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Kembali ke Halaman Utama</a>
+</div>
+
+<script type="module">
+    // ... baris import tetap sama ...
+
+    // --- PERBAIKAN CEK LOGIN ---
+    // Gunakan fungsi ini di luar window.onload untuk eksekusi lebih cepat
+    if (localStorage.getItem("adminKatar05") !== "true") {
+        alert("Akses dilarang! Anda harus login dari halaman utama.");
+        window.location.href = "index1.html"; 
+    }
+    const firebaseConfig = {
+        apiKey: "AIzaSyCGUYq7wj3ifO5aOzJ8NYATJyhRgJBJsX0",
+        authDomain: "ukkt05pulogebang.firebaseapp.com",
+        databaseURL: "https://ukkt05pulogebang-default-rtdb.asia-southeast1.firebasedatabase.app/",
+        projectId: "ukkt05pulogebang",
+        storageBucket: "ukkt05pulogebang.firebasestorage.app",
+        messagingSenderId: "401070384158",
+        appId: "1:401070384158:web:fc2f81517d3f40c8fd7a0f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const form = document.getElementById('uploadForm');
+    const btn = document.getElementById('btnSubmit');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const category = document.getElementById('category').value;
+        const title = document.getElementById('title').value;
+        const desc = document.getElementById('desc').value;
+        const file = document.getElementById('image').files[0];
+
+        if(!category) {
+            alert("Silakan pilih kategori terlebih dahulu!");
+            return;
+        }
+
+        btn.innerText = "Sedang Mengirim...";
+        btn.disabled = true;
+
+        const reader = new FileReader();
+        reader.onload = async function() {
+            const base64Image = reader.result;
+
+            try {
+                // PENYESUAIAN: Jalur database (ref) mengikuti pilihan kategori
+                const targetPath = category; // akan berisi 'berita' atau 'kegiatan'
+                const postsRef = ref(db, targetPath);
+                const newPostRef = push(postsRef);
+                
+                await set(newPostRef, {
+                    title: title,
+                    desc: desc,
+                    image: base64Image,
+                    category: category,
+                    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+                    timestamp: Date.now()
+                });
+
+                alert(`✅ Berhasil diunggah ke bagian ${category.toUpperCase()}!`);
+                form.reset();
+                window.location.href = "index.html";
+
+            } catch (error) {
+                console.error("Error: ", error);
+                alert("Gagal mengunggah: " + error.message);
+            } finally {
+                btn.innerText = "Kirim ke Beranda";
+                btn.disabled = false;
+            }
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+</body>
+</html>
