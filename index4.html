@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pengurus - RW 05</title>
+    
+    <style>
+        /* --- CSS DASAR (Konsisten & Responsive) --- */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+        body{
+            line-height:1.6;
+            color:#333;
+            background:#f9f9f9; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+        }
+        
+        /* HEADER: Full Width */
+        header {
+            background:#ff7a00; 
+            color:white; 
+            padding:10px 0; 
+            position:sticky; 
+            top:0; 
+            z-index:1000; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .logo-area { display:flex; align-items:center; gap:10px; }
+        .logo-area img { height:55px; width:55px; border-radius:12px; background: white; }
+        
+        /* MENU DESKTOP */
+        nav ul { display:flex; list-style:none; }
+        nav ul li { margin-left:25px; }
+        nav a { color:white; text-decoration:none; font-weight:bold; font-size: 15px; }
+
+        .menu-toggle {
+            display: none; 
+            font-size: 28px; 
+            cursor: pointer; 
+            color: white;
+        }
+
+        /* --- KONTEN PENCARIAN (CENTERED) --- */
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .search-card {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .search-card h2 { color: #ff7a00; font-size: 26px; margin-bottom: 10px; }
+        .search-card p { color: #666; margin-bottom: 25px; font-size: 14px; }
+
+        /* Input Group: Column di HP, Row di Desktop */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus { border-color: #ff7a00; }
+
+        .btn-search {
+            padding: 0 30px;
+            background: #ff7a00;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-search:hover { background: #e66e00; }
+
+        /* --- HASIL PENCARIAN --- */
+        .pengurus-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 6px solid #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 15px;
+            text-align: left;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pengurus-item h3 { color: #ff7a00; margin-bottom: 8px; font-size: 18px; }
+        .pengurus-item p { margin-bottom: 4px; color: #555; font-size: 14px; }
+
+        /* FOOTER: Full Width */
+        footer { background:#222; color:white; text-align:center; padding:30px; width: 100%; }
+        .feth-text { font-size: 11px; opacity: 0.5; margin-top: 8px; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media(max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            nav ul {
+                display: none; 
+                flex-direction: column;
+                background: #ff7a00;
+                position: absolute;
+                top: 75px; 
+                right: 0;
+                width: 100%;
+                z-index: 1001;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            }
+
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a { padding: 20px; display: block; text-align: center; }
+
+            .input-group { flex-direction: column; }
+            .btn-search { padding: 15px; }
+            
+            .search-wrapper { padding: 20px 15px; }
+            .search-card { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-area">
+            <img src="katar.png" alt="Logo">
+            <strong>Karang Taruna RW 05</strong>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <ul id="menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#kontak">Kontak</a></li>
+            <li><a href="index2.html">Layanan</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="search-wrapper">
+    <div class="search-card">
+        <h2>Data Pengurus</h2>
+        <p>Gunakan nama lengkap atau panggilan untuk mencari profil pengurus aktif.</p>
+        
+        <div class="input-group">
+            <input type="text" id="inputCari" placeholder="Contoh: Fathan Surya">
+            <button class="btn-search" onclick="mulaiCari()">Cari</button>
+        </div>
+
+        <div id="containerHasil"></div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Unit Kerja Karang Taruna RW 05</p>
+    <p class="feth-text">Portal Digital Terpadu RW 05 - Pulo Gebang</p>
+</footer>
+
+<script>
+const databasePengurus = [
+    {"Nama": "Fathan Surya", "Jabatan": "Ketua Karang Taruna", "RT": "013", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Aldy", "Jabatan": "Wakil Ketua Karang Taruna", "RT": "014", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Ahmad Fauzi", "Jabatan": "Wakil Ketua Karang Taruna", "RT": "015", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Salsabilah Ramadanis", "Jabatan": "Sekretaris Umum 1", "RT": "013", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Vina Nailatul Haqi", "Jabatan": "Sekretaris Umum 2", "RT": "011", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Fahda Fadiatur Ridfa", "Jabatan": "Bendahara Umum 1", "RT": "008", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Naurah", "Jabatan": "Bendahara Umum 2", "RT": "005", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Ahmad Sauqi", "Jabatan": "Sosial Dan Rohanian", "RT": "015", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Abdul Hakam", "Jabatan": "Sosial Dan Rohanian", "RT": "009", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Intan Srimulyani", "Jabatan": "Sosial Dan Rohanian", "RT": "005", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Syifa Fauziah Putri", "Jabatan": "Sosial Dan Rohanian", "RT": "005", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Siti Kamilah", "Jabatan": "Sosial Dan Rohanian", "RT": "011", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Ririn Indriyani", "Jabatan": "Sosial Dan Rohanian", "RT": "011", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Dimas Hartanto", "Jabatan": "Sosial Dan Rohanian", "RT": "001", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Yusuf Adrian", "Jabatan": "Sosial Dan Rohanian", "RT": "001", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Syahrul Hidayat", "Jabatan": "Sosial Dan Rohanian", "RT": "012", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Satria Eka Saputra", "Jabatan": "Olahraga Dan Seni", "RT": "006", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Fandi", "Jabatan": "Olahraga Dan Seni", "RT": "004", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Wahyu Pratama", "Jabatan": "Olahraga Dan Seni", "RT": "004", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Sultan Hasanudin", "Jabatan": "Olahraga Dan Seni", "RT": "003", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Aldi Mahesa", "Jabatan": "Olahraga Dan Seni", "RT": "003", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Ghaisan", "Jabatan": "Olahraga Dan Seni", "RT": "003", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Revan", "Jabatan": "Olahraga Dan Seni", "RT": "003", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Dina", "Jabatan": "Olahraga Dan Seni", "RT": "003", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Rasya Hendri Sadewa", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Mouammar Khadafie", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Gilang Rizki Ramadhan", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Syadewo Dwiansyah", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Andika Aryo Putra", "Jabatan": "Olahraga Dan Seni", "RT": "006", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Satria (Ujang)", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Muhammad khadavi ibnu", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Jondray Manulang", "Jabatan": "Olahraga Dan Seni", "RT": "007", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Miftah", "Jabatan": "HPD (Humas Publikasi Dokumentasi)", "RT": "010", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Fahri", "Jabatan": "HPD (Humas Publikasi Dokumentasi)", "RT": "002", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "Rayvan", "Jabatan": "HPD (Humas Publikasi Dokumentasi)", "RT": "015", "MasaAktif": "2025 - Sekarang"},
+    {"Nama": "M. Rafli", "Jabatan": "HPD (Humas Publikasi Dokumentasi)", "RT": "015", "MasaAktif": "2025 - Sekarang"}
+];
+
+    function mulaiCari() {
+        const keyword = document.getElementById("inputCari").value.toLowerCase();
+        const box = document.getElementById("containerHasil");
+        box.innerHTML = "";
+
+        if(!keyword) { alert("Masukkan nama!"); return; }
+
+        const hasil = databasePengurus.filter(p => p.Nama.toLowerCase().includes(keyword));
+
+        if(hasil.length > 0) {
+            hasil.forEach(p => {
+                box.innerHTML += `
+                <div class="pengurus-item">
+                    <h3>${p.Nama}</h3>
+                    <p><b>Jabatan:</b> ${p.Jabatan}</p>
+                    <p><b>Asal:</b> RT ${p.RT} / RW 05</p>
+                    <p><b>Masa Aktif:</b> ${p.MasaAktif}</p>
+                </div>`;
+            });
+        } else {
+            box.innerHTML = "<p style='color:red; text-align:center; font-size:14px; margin-top:20px;'>Pengurus tidak ditemukan.</p>";
+        }
+    }
+
+    function toggleMenu() { document.getElementById('menu').classList.toggle('show'); }
+
+    document.getElementById("inputCari").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") mulaiCari();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Kerja - Karang Taruna RW 05</title>
+    
+    <style>
+        /* --- CSS DASAR --- */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+        body{line-height:1.6;color:#333;background:#f9f9f9; min-height: 100vh; display: flex; flex-direction: column;}
+        
+        /* HEADER RAPI (Sesuai index2, index3, index4) */
+        header{
+            background:#ff7a00; color:white; padding:10px 30px; 
+            position:sticky; top:0; z-index:1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav{display:flex; justify-content:space-between; align-items:center; max-width: 1200px; margin: 0 auto; width: 100%;}
+        .logo-area {display:flex; align-items:center; gap:10px;}
+        .logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
+        
+        nav ul{display:flex; list-style:none;}
+        nav ul li{margin-left:25px;}
+        nav a{color:white; text-decoration:none; font-weight:bold; font-size: 15px; transition: 0.3s;}
+        nav a:hover{opacity: 0.8;}
+
+        /* Menu Toggle (Burger) untuk Mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+            user-select: none;
+        }
+
+        /* --- KONTEN --- */
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .header-title { text-align: center; margin-bottom: 50px; }
+        .header-title h1 { color: #ff7a00; font-size: 32px; margin-bottom: 10px; }
+        .header-title p { color: #666; font-size: 1.1rem; }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px;
+        }
+
+        .program-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border-top: 6px solid #ff7a00;
+        }
+
+        .program-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 35px rgba(255, 122, 0, 0.15); 
+        }
+        
+        .program-card h2 { color: #333; margin-bottom: 20px; font-size: 22px; }
+        .program-card p { font-size: 15px; color: #666; margin-bottom: 30px; flex-grow: 1; line-height: 1.7; }
+        
+        .btn-detail {
+            width: 100%;
+            padding: 15px;
+            background: #ff7a00;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn-detail:hover { background: #e66e00; box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3); }
+
+        /* FOOTER */
+        footer{background:#222; color:white; text-align:center; padding:30px; margin-top: 50px;}
+        .feth-text { font-size: 11px; opacity: 0.6; margin-top: 10px; letter-spacing: 1px; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media(max-width: 768px) {
+            header { padding: 10px 20px; }
+            .menu-toggle { display: block; }
+
+            nav ul {
+                display: none; 
+                flex-direction: column;
+                background: #ff7a00;
+                position: absolute;
+                top: 80px; 
+                right: 0;
+                width: 100%;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                border-top: 1px solid rgba(255,255,255,0.2);
+                z-index: 1001;
+            }
+
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a { padding: 20px; display: block; width: 100%; }
+
+            .program-grid { grid-template-columns: 1fr; gap: 20px; }
+            .header-title h1 { font-size: 26px; }
+            .logo-area strong { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-area">
+            <img src="katar.png" alt="Logo">
+            <strong>Karang Taruna RW 05</strong>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">&#9776;</div>
+        
+        <ul id="nav-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#kontak">Kontak</a></li>
+            <li><a href="index2.html">Layanan</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="header-title">
+        <h1>Program Kerja Organisasi</h1>
+        <p>Detail rencana kegiatan strategis per divisi</p>
+    </div>
+
+    <div class="program-grid">
+        <div class="program-card">
+            <h2>Sosial dan Kerohanian</h2>
+            <p>Kegiatan bakti sosial, santunan, peringatan hari besar agama, dan penguatan nilai religius warga RW 05.</p>
+            <a href="index6.html" class="btn-detail">Lihat Program</a>
+        </div>
+
+        <div class="program-card">
+            <h2>Kewirausahaan (KWU)</h2>
+            <p>Pemberdayaan ekonomi kreatif, pengembangan UMKM pemuda, dan pengelolaan unit usaha mandiri organisasi.</p>
+            <a href="index7.html" class="btn-detail">Lihat Program</a>
+        </div>
+
+        <div class="program-card">
+            <h2>Olahraga dan Seni</h2>
+            <p>Penyelenggaraan turnamen antar RT, pembinaan bakat olahraga, dan pelestarian kesenian lokal daerah.</p>
+            <a href="index9.html" class="btn-detail">Lihat Program</a>
+        </div>
+
+        <div class="program-card">
+            <h2>Humas & Dokumentasi (HPD)</h2>
+            <p>Pengelolaan media komunikasi digital, publikasi berita, dokumentasi kegiatan, dan informasi publik.</p>
+            <a href="index8.html" class="btn-detail">Lihat Program</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Unit Kerja Karang Taruna RW 05</p>
+    <p class="feth-text">Portal Digital Terpadu RW 05 - Pulo Gebang</p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('nav-list').classList.toggle('show');
+    }
+
+    // Klik di luar menu untuk menutup
+    window.addEventListener('click', function(e) {
+        const menu = document.getElementById('nav-list');
+        const toggle = document.getElementById('mobile-menu');
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    });
+</script>
+</body>
+</html>

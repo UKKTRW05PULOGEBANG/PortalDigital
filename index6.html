@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Kerja Sosial & Kerohanian - RW 05</title>
+    
+    <style>
+        /* --- CSS DASAR --- */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif}
+        body{line-height:1.6;color:#333;background:#f4f7f6; min-height: 100vh; display: flex; flex-direction: column;}
+        
+        /* HEADER RAPI (Sesuai index3 & index4) */
+        header{
+            background:#ff7a00; color:white; padding:10px 30px; 
+            position:sticky; top:0; z-index:1000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+        }
+        nav{display:flex; justify-content:space-between; align-items:center; max-width: 1200px; margin: 0 auto; width: 100%;}
+        .logo-area {display:flex; align-items:center; gap:10px;}
+        .logo-area img {height:50px; width:50px; border-radius:10px; background: white;}
+        
+        nav ul{display:flex; list-style:none;}
+        nav ul li{margin-left:20px;}
+        nav a{color:white; text-decoration:none; font-weight:bold; font-size: 14px; transition: 0.3s;}
+        nav a:hover{opacity: 0.8;}
+
+        /* Menu Toggle (Burger) */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            user-select: none;
+        }
+
+        /* --- KONTEN UTAMA --- */
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 50px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .hero-section h1 { color: #ff7a00; font-size: 2.5rem; margin-bottom: 10px; }
+        .hero-section p { color: #666; font-size: 1.1rem; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding: 12px 20px;
+            background: #fff;
+            border-radius: 12px;
+            border-left: 6px solid #ff7a00;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .grid-programs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card-program {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        
+        .card-program:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 35px rgba(255, 122, 0, 0.15); 
+        }
+        
+        .card-program h3 { color: #ff7a00; margin-bottom: 12px; font-size: 18px; }
+        .card-program p { font-size: 14px; color: #555; margin-bottom: 20px; flex-grow: 1; }
+
+        .badge-info {
+            display: inline-block;
+            background: #fff0e0;
+            color: #ff7a00;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        footer{background:#222; color:white; text-align:center; padding:25px; margin-top: 50px;}
+        .feth-text { font-size: 11px; opacity: 0.5; margin-top: 8px; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media(max-width: 768px) {
+            header { padding: 10px 20px; }
+            .menu-toggle { display: block; }
+
+            nav ul {
+                display: none; 
+                flex-direction: column;
+                background: #ff7a00;
+                position: absolute;
+                top: 70px; 
+                right: 0;
+                width: 100%;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                border-top: 1px solid rgba(255,255,255,0.2);
+                z-index: 1001;
+            }
+
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a { padding: 20px; display: block; width: 100%; }
+            
+            .hero-section h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-area">
+            <img src="katar.png" alt="Logo">
+            <strong>Karang Taruna RW 05</strong>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">&#9776;</div>
+
+        <ul id="nav-list">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#kontak">Kontak</a></li>
+            <li><a href="index5.html">Kembali</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="main-container">
+    <div class="hero-section">
+        <h1>Divisi Sosial & Kerohanian</h1>
+        <p>Menebar Kebaikan dan Mempererat Ukhuwah di Lingkungan RW 05</p>
+    </div>
+
+    <h2 class="section-title">🌙 Bidang Kerohanian</h2>
+    <div class="grid-programs">
+        <div class="card-program">
+            <h3>Pengajian Rutin Bulanan</h3>
+            <p>Wadah peningkatan keimanan dan ilmu agama bagi pemuda dan warga sekitar dalam suasana yang hangat.</p>
+            <div>
+                <span class="badge-info">Silaturahmi</span>
+                <span class="badge-info">Bulanan</span>
+            </div>
+        </div>
+        <div class="card-program">
+            <h3>Peringatan Hari Besar Islam</h3>
+            <p>Memperingati Maulid Nabi hingga Isra Mi'raj sebagai pengingat sejarah perjuangan agama bagi generasi muda.</p>
+            <div>
+                <span class="badge-info">Religius</span>
+                <span class="badge-info">Event Tahunan</span>
+            </div>
+        </div>
+        <div class="card-program">
+            <h3>Lomba MTQ Remaja</h3>
+            <p>Menumbuhkan semangat mencintai Al-Qur'an sejak dini melalui kompetisi yang sehat dan edukatif.</p>
+            <div>
+                <span class="badge-info">Edukasi</span>
+                <span class="badge-info">Pra-Ramadhan</span>
+            </div>
+        </div>
+        <div class="card-program">
+            <h3>Latihan Hadroh</h3>
+            <p>Melestarikan seni musik islami sekaligus menyalurkan bakat seni para remaja di lingkungan RW 05.</p>
+            <div>
+                <span class="badge-info">Seni Budaya</span>
+                <span class="badge-info">Rutinitas</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">🤝 Bidang Sosial</h2>
+    <div class="grid-programs">
+        <div class="card-program">
+            <h3>SHSB (Satu Hati Saling Berbagi)</h3>
+            <p>Program kepedulian sosial di bulan Ramadhan untuk anak yatim, janda, dan warga yang membutuhkan bantuan.</p>
+            <div>
+                <span class="badge-info">Kemanusiaan</span>
+                <span class="badge-info">Ramadhan</span>
+            </div>
+        </div>
+        <div class="card-program">
+            <h3>Kerja Bakti Keliling</h3>
+            <p>Aksi nyata menjaga kebersihan lingkungan RW 05 sekaligus membangun kekompakan antar pengurus.</p>
+            <div>
+                <span class="badge-info">Kesehatan</span>
+                <span class="badge-info">Minggu Pertama</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Divisi Sosial & Kerohanian - Karang Taruna RW 05</p>
+    <p class="feth-text">Portal Digital Terpadu RW 05 - Pulo Gebang</p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('nav-list');
+        menu.classList.toggle('show');
+    }
+
+    // Tutup menu jika klik di luar area menu
+    window.addEventListener('click', function(e) {
+        const menu = document.getElementById('nav-list');
+        const toggle = document.getElementById('mobile-menu');
+        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    });
+</script>
+</body>
+</html>
