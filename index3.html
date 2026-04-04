@@ -9,7 +9,7 @@
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     
     <style>
-        /* --- CSS DASAR (Tetap sesuai file Anda) --- */
+        /* --- CSS DASAR (Tetap Rapi) --- */
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
         body{
             line-height:1.6;
@@ -47,12 +47,7 @@
         nav ul li { margin-left:25px; }
         nav a { color:white; text-decoration:none; font-weight:bold; font-size: 15px; }
 
-        .menu-toggle {
-            display: none; 
-            font-size: 28px; 
-            cursor: pointer; 
-            color: white;
-        }
+        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
 
         .search-wrapper {
             flex: 1;
@@ -109,6 +104,7 @@
         }
         .btn-search:hover { background: #e66e00; }
 
+        /* Tampilan Hasil */
         .result-item {
             background: #fff;
             padding: 20px;
@@ -154,7 +150,6 @@
                 right: 0;
                 width: 100%;
                 z-index: 1001;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
             nav ul.show { display: flex; }
             nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -182,11 +177,11 @@
 <main class="search-wrapper">
     <div class="search-card">
         <h2>Cek Bantuan Sosial</h2>
-        <p>Gunakan nama lengkap atau nik untuk melihat status anda.</p>
+        <p>Silakan masukkan NIK lengkap Anda untuk melihat status bantuan.</p>
         
         <div class="input-group">
-            <input type="text" id="inputCari" placeholder="Contoh: Ahmad">
-            <button class="btn-search" onclick="cariData()">Cari Data</button>
+            <input type="text" id="inputCari" placeholder="Masukkan 16 digit NIK Anda...">
+            <button class="btn-search" onclick="cariData()">Cek Data Saya</button>
         </div>
 
         <div id="hasilPencarian"></div>
@@ -209,9 +204,9 @@
             const workbook = XLSX.read(arrayBuffer, { type: 'array' });
             const sheet = workbook.Sheets[workbook.SheetNames[0]];
             dbBansos = XLSX.utils.sheet_to_json(sheet);
-            console.log("Database Excel Terkoneksi");
+            console.log("Database Siap");
         } catch (err) {
-            console.error("Gagal memuat file bansos.xlsx:", err);
+            console.error("Gagal memuat database:", err);
         }
     });
 
@@ -220,21 +215,21 @@
         const display = document.getElementById("hasilPencarian");
         display.innerHTML = "";
 
-        if (!input) { alert("Silakan masukkan Nama atau NIK!"); return; }
+        if (!input) { alert("Silakan masukkan NIK!"); return; }
 
-        // Filter data berdasarkan judul kolom di Excel Anda
+        // SKEMA PRIVASI: Menggunakan === (Exact Match) 
+        // Hasil hanya akan muncul jika input sama persis dengan kolom Nama atau Nik di Excel
         const hasil = dbBansos.filter(data => 
-            (data["Nama"] && data["Nama"].toString().toLowerCase().includes(input)) ||
-            (data["Nik"] && data["Nik"].toString().includes(input))
+            (data["Nik"] && data["Nik"].toString() === input) ||
+            (data["Nama"] && data["Nama"].toString().toLowerCase() === input)
         );
 
         if (hasil.length > 0) {
             hasil.forEach(data => {
-                // Logika warna status
                 const layak = data["Status Kelayakan"] === "Layak";
                 const color = layak ? "#28a745" : "#dc3545";
                 
-                // Sensor NIK (Hanya tampilkan depan dan belakang)
+                // Sensor NIK untuk keamanan tampilan
                 const maskedNIK = data["Nik"] 
                     ? data["Nik"].toString().replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
                     : 'Tidak Tersedia';
@@ -242,9 +237,9 @@
                 display.innerHTML += `
                     <div class="result-item" style="border-left: 6px solid ${color}">
                         <span class="status-badge" style="background: ${color}">
-                            ${data["Status Kelayakan"] ? data["Status Kelayakan"].toUpperCase() : 'UNDEFINED'}
+                            ${(data["Status Kelayakan"] || 'TIDAK DIKETAHUI').toUpperCase()}
                         </span>
-                        <h3 style="margin:0; font-size:18px;">${data["Nama"]}</h3>
+                        <h3 style="margin:0;">${data["Nama"]}</h3>
                         <p style="font-size:12px; color:#777; margin: 5px 0; font-family: monospace;">NIK: ${maskedNIK}</p>
                         
                         <div class="info-grid">
@@ -258,7 +253,7 @@
                 `;
             });
         } else {
-            display.innerHTML = `<p style="color:#dc3545; font-weight:bold; margin-top:20px;">Data tidak ditemukan.</p>`;
+            display.innerHTML = `<p style="color:#dc3545; font-weight:bold; margin-top:20px;">Data tidak ditemukan atau input tidak sesuai.</p>`;
         }
     }
 
