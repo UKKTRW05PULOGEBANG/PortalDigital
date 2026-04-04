@@ -478,22 +478,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const music2 = document.getElementById('bgm2');
 
     // 1. Atur Volume
-    music1.volume = 0.3; // Volume Backsound 1 (Normal)
-    music2.volume = 0.1; // Volume Backsound 2 (Lebih Kecil)
+    music1.volume = 0.3; // Volume Backsound 1
+    music2.volume = 0.1; // Volume Backsound 2
 
-    // 2. Jalankan keduanya (Backsound 2 jalan di latar belakang)
-    // Catatan: Browser modern sering memblokir autoplay sebelum user berinteraksi.
-    // Kita jalankan saat user klik apapun di halaman.
-    document.body.addEventListener('click', function() {
-        if (music1.paused) music1.play();
-        if (music2.paused) music2.play();
-    }, { once: true });
+    // 2. Fungsi untuk menjalankan musik
+    function playMusic() {
+        if (music1.paused) {
+            music1.play().catch(error => console.log("Autoplay diblokir, menunggu interaksi lanjut."));
+        }
+        if (music2.paused) {
+            music2.play().catch(error => console.log("Autoplay diblokir."));
+        }
+    }
 
-    // 3. Logika ketika Backsound 1 Selesai
+    // 3. Jalankan musik saat user SCROLL atau KLIK
+    // Kita gunakan { once: true } agar fungsi ini hanya terpanggil sekali saja
+    window.addEventListener('scroll', playMusic, { once: true });
+    document.body.addEventListener('click', playMusic, { once: true });
+
+    // 4. Logika ketika Backsound 1 Selesai
     music1.onended = function() {
-        console.log("Backsound 1 selesai. Backsound 2 tetap berlanjut.");
-        // Backsound 2 tidak perlu di-play lagi karena sudah loop dari awal,
-        // Tapi kita bisa menaikkan volumenya sedikit jika diinginkan:
+        console.log("Backsound 1 selesai. Backsound 2 volume naik.");
         music2.volume = 0.3; 
     };
 });
