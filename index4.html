@@ -195,6 +195,7 @@
             const arrayBuffer = await response.arrayBuffer();
             const workbook = XLSX.read(arrayBuffer, { type: 'array' });
             const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            // Mengubah excel menjadi JSON
             dbPengurus = XLSX.utils.sheet_to_json(sheet);
             console.log("Database Pengurus Siap");
         } catch (err) {
@@ -209,9 +210,9 @@
 
         if(!keyword) { alert("Silakan masukkan nama!"); return; }
 
-        // Filter berdasarkan Nama (Exact Match / Sesuai Persis agar lebih privat)
+        // Filter Nama (Mencari teks yang mengandung keyword)
         const hasil = dbPengurus.filter(p => 
-            p.Nama && p.Nama.toString().toLowerCase() === keyword
+            p.Nama && p.Nama.toString().toLowerCase().includes(keyword)
         );
 
         if(hasil.length > 0) {
@@ -222,29 +223,28 @@
             });
 
             hasil.forEach(p => {
+                // Perbaikan: Memastikan kolom Masa Aktif terbaca (sesuaikan nama kolom jika di excel ada spasi)
+                const masaAktif = p["Masa Aktif"] || p.MasaAktif || "-";
+
                 box.innerHTML += `
-                <div class="pengurus-item">
-                    <div class="divisi-badge">${p.Divisi || 'Anggota'}</div>
-                    <h3>${p.Nama}</h3>
+                <div class="pengurus-item" style="border-left: 6px solid #ff7a00; padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <h3 style="margin-bottom: 2px; color: #333;">${p.Nama}</h3>
+                    <div style="color: #ff7a00; font-weight: bold; font-size: 14px; margin-bottom: 15px;">
+                        ${p.Divisi || 'Anggota'}
+                    </div>
                     
-                    <div class="info-detail">
-                        <p><b>No Anggota:</b> ${p.Nomor || '-'}</p>
-                        <p><b>Umur:</b> ${p.Umur || '-'} Tahun</p>
-                        <p><b>Asal:</b> ${p.Asal || '-'}</p>
-                        <p><b>Masa Aktif:</b> ${p.MasaAktif || '-'}</p>
+                    <div class="info-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px; color: #555;">
+                        <p><b>Asal:</b> RT ${p.Asal || '-'} / RW 05</p>
+                        <p><b>Masa Aktif:</b> ${MasaAktif}</p>
                     </div>
 
-                    <div class="timestamp">
+                    <div class="timestamp" style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 11px; color: #999; font-style: italic;">
                         Pencarian valid pada: ${waktuWIB} WIB
                     </div>
                 </div>`;
             });
         } else {
-            box.innerHTML = `
-                <div style="margin-top:20px; color:#dc3545;">
-                    <strong>Pengurus tidak ditemukan.</strong><br>
-                    <small>Pastikan mengetik Nama Lengkap dengan benar.</small>
-                </div>`;
+            box.innerHTML = `<p style="color:#dc3545; text-align:center; margin-top:20px;">Pengurus tidak ditemukan.</p>`;
         }
     }
 
