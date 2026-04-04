@@ -1,254 +1,202 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-   <meta name="google-adsense-account" content="ca-pub-5512413766339626">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cek Bantuan Sosial - RW 05</title>
+    <title>Portal Layanan Bansos RW 05</title>
+    
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     
     <style>
-        /* --- CSS DASAR --- */
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-        body{
-            line-height:1.6;
-            color:#333;
-            background:#f9f9f9; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-        }
-        
-        /* HEADER: Full Width & Center Content */
-        header {
-            background:#ff7a00; 
-            color:white; 
-            padding:10px 0; 
-            position:sticky; 
-            top:0; 
-            z-index:1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 100%;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #ff7a00;
+            --success: #28a745;
+            --danger: #dc3545;
         }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-        }
-
-        .logo-area { display:flex; align-items:center; gap:10px; }
-        .logo-area img { height:55px; width:55px; border-radius:12px; background: white; }
-        
-        nav ul { display:flex; list-style:none; }
-        nav ul li { margin-left:25px; }
-        nav a { color:white; text-decoration:none; font-weight:bold; font-size: 15px; }
-
-        .menu-toggle {
-            display: none; 
-            font-size: 28px; 
-            cursor: pointer; 
-            color: white;
-        }
-
-        /* --- KONTEN PENCARIAN (CENTERED) --- */
-        .search-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Mulai dari atas tapi tetap center */
-            padding: 40px 20px;
-            width: 100%;
-        }
-
-        .search-card {
-            width: 100%;
-            max-width: 600px; /* Ukuran lebih pas untuk dibaca */
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
             text-align: center;
         }
 
-        .search-card h2 { color: #ff7a00; font-size: 24px; margin-bottom: 10px; }
-        .search-card p { color: #666; margin-bottom: 25px; font-size: 14px; }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-        .input-group {
+        h2 { color: var(--primary); margin-bottom: 10px; }
+        p.subtitle { color: #666; margin-bottom: 25px; font-size: 14px; }
+
+        .search-box {
             display: flex;
-            flex-direction: column; /* Vertikal di HP agar lebih rapi */
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #eee;
-            border-radius: 12px;
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             outline: none;
-            font-size: 16px;
-            text-align: center; /* Teks input di tengah */
-        }
-
-        input[type="text"]:focus { border-color: #ff7a00; }
-
-        .btn-search {
-            width: 100%;
-            padding: 15px;
-            background: #ff7a00;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
             transition: 0.3s;
         }
-        .btn-search:hover { background: #e66e00; }
 
-        /* --- TAMPILAN HASIL --- */
+        input:focus { border-color: var(--accent); }
+
+        button {
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { background: #e66e00; }
+
         .result-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #eee;
-            border-left: 6px solid #ff7a00;
-            margin-top: 20px;
             text-align: left;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 15px;
+            margin-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
         }
 
-        .info-box span { display: block; font-size: 10px; color: #888; }
-        .info-box strong { font-size: 13px; color: #444; }
+        .info-box span { display: block; font-size: 11px; color: #999; margin-bottom: 2px; }
+        .info-box strong { font-size: 14px; color: #333; }
 
-        .status-badge {
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-            float: right;
-        }
-        .status-layak { background: #e6f9ed; color: #1db954; }
-        .status-tidak { background: #fdeaea; color: #e91e63; }
-
-        footer{ background:#222; color:white; text-align:center; padding:25px; width: 100%; }
-        .feth-text { font-size: 11px; opacity: 0.5; margin-top: 8px; }
-
-        /* --- RESPONSIVE HP --- */
-        @media(max-width: 768px) {
-            .menu-toggle { display: block; }
-            
-            nav ul {
-                display: none; 
-                flex-direction: column;
-                background: #ff7a00;
-                position: absolute;
-                top: 75px; 
-                right: 0;
-                width: 100%;
-                z-index: 1001;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-            }
-
-            nav ul.show { display: flex; }
-            nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a { padding: 20px; display: block; text-align: center; }
-
-            .search-wrapper { padding: 20px 15px; }
-            .search-card { padding: 25px 20px; }
-        }
+        .loading { color: #888; font-style: italic; margin-bottom: 15px; display: none; }
     </style>
 </head>
 <body>
 
-<header>
-    <nav>
-        <div class="logo-area">
-            <img src="katar.png" alt="Logo">
-            <strong>RW 05 Digital</strong>
-        </div>
-        
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="container">
+        <h2>Cek Penerima Bansos</h2>
+        <p class="subtitle">Portal Digital Karang Taruna RW 05 Pulo Gebang</p>
 
-        <ul id="menu">
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="index2.html#kontak">Kontak</a></li>
-            <li><a href="index2.html">Layanan</a></li>
-        </ul>
-    </nav>
-</header>
+        <div id="loader" class="loading">Memuat database Excel...</div>
 
-<main class="search-wrapper">
-    <div class="search-card">
-        <h2>Cek Bantuan Sosial</h2>
-        <p>Gunakan nama lengkap untuk melihat status bantuan pemerintah Anda di wilayah RW 05.</p>
-        
-        <div class="input-group">
-            <input type="text" id="inputNama" placeholder="Contoh: Ahmad">
-            <button class="btn-search" onclick="cariBansos()">Cari Data</button>
+        <div class="search-box">
+            <input type="text" id="inputCari" placeholder="Masukkan Nama atau NIK (16 digit)..." onkeypress="if(event.key === 'Enter') cariData()">
+            <button onclick="cariData()">CARI</button>
         </div>
 
-        <div id="hasilPencarian"></div>
+        <div id="hasilPencarian">
+            </div>
     </div>
-</main>
 
-<footer>
-    <p>© 2026 Unit Kerja Karang Taruna RW 05</p>
-    <p class="feth-text">Sistem Informasi Bantuan Sosial Terpadu</p>
-</footer>
+    <script>
+        let dbBansos = [];
 
-<script>
-    const dbBansos = [
-        {"Nama":"Ahmad","RT":"10","Status":"Layak","Jenis":"PKH","Nominal":"Rp 750.000","Penyaluran":"Sudah Cair","Ket":"Kategori Lansia"},
-        {"Nama":"Ilham","RT":"01","Status":"Tidak Layak","Jenis":"-","Nominal":"0","Penyaluran":"Dibatalkan","Ket":"Ekonomi Mampu"},
-        {"Nama":"Siti","RT":"10","Status":"Layak","Jenis":"BPNT","Nominal":"Rp 200.000","Penyaluran":"Proses","Ket":"Sembako"},
-        {"Nama":"Rizky","RT":"07","Status":"Layak","Jenis":"BLT Desa","Nominal":"Rp 300.000","Penyaluran":"Sudah Cair","Ket":"Dana Desa"},
-        {"Nama":"Agus","RT":"09","Status":"Layak","Jenis":"PKH","Nominal":"Rp 600.000","Penyaluran":"Sudah Cair","Ket":"Anak Sekolah"}
-    ];
+        // 1. OTOMATIS LOAD EXCEL SAAT WEB DIBUKA
+        window.addEventListener('DOMContentLoaded', async () => {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
 
-    function cariBansos() {
-        const input = document.getElementById("inputNama").value.toLowerCase();
-        const display = document.getElementById("hasilPencarian");
-        display.innerHTML = "";
+            try {
+                // Pastikan file "bansos.xlsx" ada di folder yang sama
+                const response = await fetch('bansos.xlsx');
+                if (!response.ok) throw new Error("File bansos.xlsx tidak ditemukan.");
+                
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                
+                // Ambil sheet pertama
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                dbBansos = XLSX.utils.sheet_to_json(sheet);
+                
+                loader.innerHTML = "✅ Database Terhubung";
+                setTimeout(() => loader.style.display = 'none', 2000);
+            } catch (err) {
+                loader.innerHTML = "❌ Gagal memuat database Excel.";
+                console.error(err);
+            }
+        });
 
-        if(!input) { alert("Tulis nama Anda!"); return; }
+        // 2. LOGIKA PENCARIAN
+        function cariData() {
+    // 1. Ambil input dan bersihkan spasi, lalu ubah ke huruf kecil
+    const input = document.getElementById("inputCari").value.trim().toLowerCase();
+    const display = document.getElementById("hasilPencarian");
+    display.innerHTML = "";
 
-        const hasil = dbBansos.filter(w => w.Nama.toLowerCase().includes(input));
+    if (!input) {
+        alert("Silakan masukkan Nama atau NIK!");
+        return;
+    }
 
-        if(hasil.length > 0) {
-            hasil.forEach(data => {
-                const statusClass = data.Status === "Layak" ? "status-layak" : "status-tidak";
-                display.innerHTML += `
-                    <div class="result-item">
-                        <span class="status-badge ${statusClass}">${data.Status.toUpperCase()}</span>
-                        <h3 style="font-size:16px;">${data.Nama}</h3>
-                        <div class="info-grid">
-                            <div class="info-box"><span>Jenis</span><strong>${data.Jenis}</strong></div>
-                            <div class="info-box"><span>Dana</span><strong>${data.Nominal}</strong></div>
-                            <div class="info-box"><span>Penyaluran</span><strong style="color:#ff7a00">${data.Penyaluran}</strong></div>
-                            <div class="info-box"><span>RT</span><strong>${data.RT}</strong></div>
-                        </div>
+    // 2. Logika Filter yang mendukung potongan nama (Partial Match)
+    const hasil = dbBansos.filter(item => {
+        // Pastikan data kolom Nama dan NIK ada di Excel untuk menghindari error
+        const namaDiExcel = item.Nama ? item.Nama.toString().toLowerCase() : "";
+        const nikDiExcel = item.NIK ? item.NIK.toString() : "";
+
+        // Cek apakah input ada di dalam Nama ATAU di dalam NIK
+        return namaDiExcel.includes(input) || nikDiExcel.includes(input);
+    });
+
+    // 3. Tampilkan Hasil
+    if (hasil.length > 0) {
+        hasil.forEach(data => {
+            const isLayak = data.Status === "Layak";
+            const badgeBg = isLayak ? "#28a745" : "#dc3545";
+            
+            // Masking NIK (Sensor)
+            const maskedNIK = data.NIK 
+                ? data.NIK.toString().replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
+                : "Tidak Tersedia";
+
+            display.innerHTML += `
+                <div class="result-item" style="border-left: 6px solid ${badgeBg}; text-align: left; background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative;">
+                    <span class="status-badge" style="position: absolute; top: 15px; right: 15px; background: ${badgeBg}; color: white; padding: 3px 10px; border-radius: 10px; font-size: 10px;">${data.Status}</span>
+                    <h3 style="margin: 0; font-size: 16px;">${data.Nama}</h3>
+                    <p style="margin: 5px 0; font-size: 12px; color: #777;">NIK: ${maskedNIK}</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; font-size: 13px;">
+                        <div><small style="color:#999; display:block;">Jenis</small> <strong>${data.Jenis || '-'}</strong></div>
+                        <div><small style="color:#999; display:block;">RT</small> <strong>${data.RT || '-'}</strong></div>
                     </div>
-                `;
-            });
-        } else {
-            display.innerHTML = "<p style='color:red; margin-top:20px; font-size:14px;'>Data tidak ditemukan.</p>";
-        }
+                </div>
+            `;
+        });
+    } else {
+        display.innerHTML = "<p style='color:#888; margin-top: 20px;'>Data tidak ditemukan. Coba masukkan nama yang berbeda.</p>";
     }
-
-    function toggleMenu() {
-        document.getElementById('menu').classList.toggle('show');
-    }
-</script>
-
+}
+    </script>
 </body>
 </html>
