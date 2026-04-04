@@ -27,7 +27,8 @@
             position:sticky; 
             top:0; 
             z-index:1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            /* Shadow Oranye di Header */
+            box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
             width: 100%;
         }
 
@@ -47,7 +48,15 @@
         nav ul li { margin-left:25px; }
         nav a { color:white; text-decoration:none; font-weight:bold; font-size: 15px; }
 
-        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
+        /* MENU GARIS 3: Ukuran diperbesar agar seimbang dan mudah diklik */
+        .menu-toggle { 
+            display: none; 
+            font-size: 35px; 
+            cursor: pointer; 
+            color: white; 
+            line-height: 1;
+            padding: 5px;
+        }
 
         .search-wrapper {
             flex: 1;
@@ -64,7 +73,8 @@
             background: white;
             padding: 35px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            /* Shadow Oranye di Kartu Utama */
+            box-shadow: 0 10px 30px rgba(255, 122, 0, 0.15); 
             text-align: center;
         }
 
@@ -81,6 +91,7 @@
             outline: none;
             font-size: 16px;
         }
+        input[type="text"]:focus { border-color: #ff7a00; }
 
         .btn-search {
             padding: 0 30px;
@@ -90,34 +101,23 @@
             border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
+        .btn-search:hover { background: #e66e00; }
 
-        /* --- STYLE KARTU PENGURUS --- */
+        /* --- STYLE KARTU HASIL PENCAYRIAN --- */
         .pengurus-item {
             background: #fff;
             padding: 20px;
             border-radius: 12px;
             border-left: 6px solid #ff7a00;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            /* Shadow Oranye di Item Pengurus */
+            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.15); 
             margin-bottom: 15px;
             text-align: left;
         }
 
-        .pengurus-item h3 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .divisi-badge {
-            display: inline-block;
-            background: #fff0e0;
-            color: #ff7a00;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+        .pengurus-item h3 { color: #333; margin-bottom: 5px; }
 
         .info-detail {
             font-size: 14px;
@@ -141,10 +141,20 @@
 
         @media(max-width: 768px) {
             .menu-toggle { display: block; }
-            nav ul { display: none; flex-direction: column; background: #ff7a00; position: absolute; top: 75px; right: 0; width: 100%; z-index: 100; }
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                background: #ff7a00; 
+                position: absolute; 
+                top: 75px; 
+                right: 0; 
+                width: 100%; 
+                z-index: 100;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
             nav ul.show { display: flex; }
+            nav ul li { margin: 15px 20px; }
             .input-group { flex-direction: column; }
-            .btn-search { padding: 15px; }
             .info-detail { grid-template-columns: 1fr; }
         }
     </style>
@@ -188,14 +198,13 @@
 <script>
     let dbPengurus = [];
 
-    // Mengambil data dari pengurus.xlsx
+    // Load data Excel
     window.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch('pengurus.xlsx');
             const arrayBuffer = await response.arrayBuffer();
             const workbook = XLSX.read(arrayBuffer, { type: 'array' });
             const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            // Mengubah excel menjadi JSON
             dbPengurus = XLSX.utils.sheet_to_json(sheet);
             console.log("Database Pengurus Siap");
         } catch (err) {
@@ -210,7 +219,7 @@
 
         if(!keyword) { alert("Silakan masukkan nama!"); return; }
 
-        // Filter Nama (Mencari teks yang mengandung keyword)
+        // Filter data berdasarkan nama (Tetap sesuai logika awal)
         const hasil = dbPengurus.filter(p => 
             p.Nama && p.Nama.toString().toLowerCase().includes(keyword)
         );
@@ -223,11 +232,10 @@
             });
 
             hasil.forEach(p => {
-                // Perbaikan: Memastikan kolom Masa Aktif terbaca (sesuaikan nama kolom jika di excel ada spasi)
                 const masaAktif = p["Masa Aktif"] || p.MasaAktif || "-";
 
                 box.innerHTML += `
-                <div class="pengurus-item" style="border-left: 6px solid #ff7a00; padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <div class="pengurus-item" style="border-left: 6px solid #ff7a00; padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(255, 122, 0, 0.15);">
                     <h3 style="margin-bottom: 2px; color: #333;">${p.Nama}</h3>
                     <div style="color: #ff7a00; font-weight: bold; font-size: 14px; margin-bottom: 15px;">
                         ${p.Divisi || 'Anggota'}
