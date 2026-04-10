@@ -89,23 +89,22 @@
             box-shadow:0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* FOOTER - Diperbarui agar lebih responsif */
-.footer {
-    background: #222;
-    color: white;
-    text-align: center;
-    padding: 30px 20px; /* Menambah padding samping agar teks tidak kena pinggir HP */
-    margin-top: 40px;
-    font-size: 14px;
-    line-height: 1.5; /* Memberi ruang antar baris */
-}
-
-.footer small {
-    display: block;
-    margin-top: 8px;
-    color: #aaa;
-    font-size: 12px;
-}
+        /* FOOTER - Diperbarui agar rapi di HP */
+        .footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer small {
+            display: block;
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 12px;
+        }
 
         .loading{ margin-bottom:15px; color:#777; font-weight: bold; }
 
@@ -121,14 +120,18 @@
                 right:0;
                 width:100%;
                 box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-.footer {
-        font-size: 13px; /* Mengecilkan sedikit ukuran teks di HP */
-        padding: 40px 30px;
-    }
             }
             nav ul.show{ display:flex; }
             nav ul li{ margin:0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); }
             nav ul li a{ padding:20px; display:block; }
+
+            .footer {
+                font-size: 13px;
+                padding: 25px 15px;
+            }
+            .footer small {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -179,7 +182,6 @@ let dbBansos = [];
 window.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     try {
-        // Menggunakan fetch untuk membaca file excel
         const response = await fetch('./bansos.xlsx');
         if (!response.ok) throw new Error("File bansos.xlsx tidak ditemukan.");
 
@@ -208,10 +210,10 @@ function cariData() {
         return;
     }
 
-    // 1. Bersihkan input dari karakter non-angka
+    // 1. Ambil hanya angka
     let cleanInput = input.replace(/\D/g, '');
 
-    // 2. Skema: Hapus 1 angka terakhir (sebagai angka pengaman)
+    // 2. Skema: Hapus 1 angka terakhir
     let searchTarget = cleanInput.slice(0, -1);
 
     if (searchTarget === "") {
@@ -227,7 +229,6 @@ function cariData() {
 
     if (hasil.length > 0) {
         hasil.forEach(data => {
-            // Masking NIK untuk keamanan
             let rawNIK = String(data.Nik);
             const maskedNIK = rawNIK.length > 10 
                 ? rawNIK.replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
@@ -262,7 +263,6 @@ function toggleMenu(){
     document.getElementById("nav-list").classList.toggle("show");
 }
 
-// Tutup menu saat klik di luar
 window.addEventListener("click", function(e){
     const menu = document.getElementById("nav-list");
     const toggle = document.getElementById("mobile-menu");
