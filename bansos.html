@@ -1,331 +1,63 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Layanan Bansos RW 05</title>
-
-<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body{
-background:#f5f6f8;
-}
-
-/* HEADER */
-header{
-background:#ff7a00;
-color:white;
-padding:10px 30px;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-max-width:1200px;
-margin:0 auto;
-width:100%;
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.logo-area img{
-height:60px;
-width:60px;
-border-radius:15px;
-background:white;
-}
-
-nav ul{
-display:flex;
-list-style:none;
-}
-
-nav ul li{
-margin-left:25px;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-font-weight:bold;
-font-size:15px;
-}
-
-.menu-toggle{
-display:none;
-font-size:30px;
-cursor:pointer;
-color:white;
-}
-
-/* CONTENT */
-.main{
-display:flex;
-justify-content:center;
-align-items:center;
-padding:60px 20px;
-}
-
-.container{
-width:100%;
-max-width:600px;
-background:white;
-padding:40px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-h2{
-color:#ff7a00;
-margin-bottom:10px;
-}
-
-.subtitle{
-color:#666;
-margin-bottom:25px;
-}
-
-input{
-width:100%;
-padding:15px;
-border-radius:10px;
-border:1px solid #ddd;
-margin-bottom:20px;
-font-size:14px;
-}
-
-button{
-width:100%;
-padding:15px;
-background:#ff7a00;
-border:none;
-color:white;
-font-weight:bold;
-border-radius:10px;
-cursor:pointer;
-}
-
-button:hover{
-background:#e86e00;
-}
-
-.result-item{
-text-align:left;
-background:#fff;
-padding:15px;
-margin-top:15px;
-border-radius:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
-
-.footer{
-background:#222;
-color:white;
-text-align:center;
-padding:25px;
-margin-top:40px;
-font-size:14px;
-}
-
-.footer small{
-display:block;
-margin-top:5px;
-color:#aaa;
-}
-
-.loading{
-margin-bottom:15px;
-color:#777;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-
-.menu-toggle{
-display:block;
-}
-
-nav ul{
-display:none;
-flex-direction:column;
-background:#ff7a00;
-position:absolute;
-top:80px;
-right:0;
-width:100%;
-}
-
-nav ul.show{
-display:flex;
-}
-
-nav ul li{
-margin:0;
-text-align:center;
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-nav ul li a{
-padding:20px;
-display:block;
-}
-
-}
-</style>
-</head>
-
-<body>
-
-<header>
-<nav>
-
-<div class="logo-area">
-<img src="katar.png">
-<strong>Karang Taruna RW 05</strong>
-</div>
-
-<div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">☰</div>
-
-<ul id="nav-list">
-<li><a href="index.html">Beranda</a></li>
-<li><a href="index#kontak">Kontak</a></li>
-<li><a href="index10.html">Kembali</a></li>
-</ul>
-
-</nav>
-</header>
-
-<div class="main">
-<div class="container">
-
-<h2>Cek Bantuan Sosial</h2>
-<p class="subtitle">
-Masukkan NIK + angka sebelum digit terakhir
-</p>
-
-<div id="loader" class="loading">Memuat database Excel...</div>
-
-<input type="text" id="inputCari" 
-placeholder="Contoh: 317506213819+1 (Tanpa Menggunakan tanda +)"
-onkeypress="if(event.key === 'Enter') cariData()">
-
-<button onclick="cariData()">Cari Data</button>
-
-<div id="hasilPencarian"></div>
-
-</div>
-</div>
-
-<div class="footer">
-© 2026 Unit Kerja Karang Taruna RW 05
-<small>Sistem Informasi Bantuan Sosial Terpadu</small>
-</div>
-
-<script>
-let dbBansos = [];
-
-/* LOAD EXCEL */
-window.addEventListener('DOMContentLoaded', async () => {
-    const loader = document.getElementById('loader');
-
-    try {
-        // Gunakan './' untuk memastikan mencari di direktori yang sama
-        const response = await fetch('./bansos.xlsx'); 
-        
-        if (!response.ok) {
-            throw new Error(`Gagal memuat file: ${response.status} ${response.statusText}`);
-        }
-
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        dbBansos = XLSX.utils.sheet_to_json(sheet);
-
-        loader.innerHTML = "✅ Database Terhubung";
-        setTimeout(() => loader.style.display = 'none', 2000);
-
-    } catch (err) {
-        loader.innerHTML = "❌ Gagal memuat database Excel.";
-        console.error("Detail Error:", err);
-    }
-});
-
 /* PENCARIAN */
 function cariData() {
+    let input = document.getElementById("inputCari").value.trim();
+    const display = document.getElementById("hasilPencarian");
+    display.innerHTML = "";
 
-let input = document.getElementById("inputCari").value.trim();
-const display = document.getElementById("hasilPencarian");
-display.innerHTML = "";
+    if (!input) {
+        alert("Silakan masukkan NIK!");
+        return;
+    }
 
-if (!input) {
-alert("Silakan masukkan NIK!");
-return;
+    // 1. Ambil hanya angka dari input
+    let cleanInput = input.replace(/\D/g, '');
+
+    // 2. Skema: Gunakan angka SEBELUM digit terakhir (Hapus 1 digit paling belakang)
+    // Contoh: 3175...191 -> 3175...19
+    let searchTarget = cleanInput.slice(0, -1);
+
+    if (searchTarget === "") {
+        display.innerHTML = "<p style='color:red;'>Input tidak valid.</p>";
+        return;
+    }
+
+    // 3. Cari di database
+    const hasil = dbBansos.filter(item => {
+        // Konversi NIK di Excel ke String, bersihkan dari karakter non-angka (seperti spasi/titik)
+        // Dan pastikan menangani format scientific excel jika ada
+        let nikDiExcel = item.NIK ? String(item.NIK).replace(/\D/g, '') : "";
+        
+        // Bandingkan secara presisi
+        return nikDiExcel === searchTarget;
+    });
+
+    if (hasil.length > 0) {
+        hasil.forEach(data => {
+            // Masking NIK untuk keamanan (Menampilkan 6 digit depan dan 4 digit belakang)
+            let rawNIK = String(data.NIK);
+            const maskedNIK = rawNIK.length > 10 
+                ? rawNIK.replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
+                : "Terdaftar";
+
+            display.innerHTML += `
+                <div class="result-item">
+                    <strong>${data.Nama || 'Tanpa Nama'}</strong><br>
+                    <small style="color: #666;">NIK: ${maskedNIK}</small><br>
+                    <div style="margin-top: 5px; font-size: 13px;">
+                        <span style="background: #fff3e6; color: #ff7a00; padding: 2px 6px; border-radius: 4px;">
+                            ${data.Jenis || 'Bantuan'}
+                        </span>
+                        <span style="margin-left: 10px; color: #444;">RT: ${data.RT || '-'}</span>
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        display.innerHTML = `
+            <div style="margin-top:20px; color:#888;">
+                <p>Data tidak ditemukan.</p>
+                <small>Pastikan NIK sudah benar sesuai format (NIK + 1 digit tambahan).</small>
+            </div>
+        `;
+    }
 }
-
-input = input.replace(/\D/g, '');
-input = input.slice(0, -1);
-
-const hasil = dbBansos.filter(item => {
-const nikDiExcel = item.NIK ? item.NIK.toString() : "";
-return nikDiExcel === input;
-});
-
-if (hasil.length > 0) {
-
-hasil.forEach(data => {
-
-const maskedNIK = data.NIK 
-? data.NIK.toString().replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
-: "Tidak Tersedia";
-
-display.innerHTML += `
-<div class="result-item">
-<strong>${data.Nama}</strong><br>
-<small>NIK: ${maskedNIK}</small><br>
-Jenis: ${data.Jenis || '-'} | RT: ${data.RT || '-'}
-</div>
-`;
-});
-
-} else {
-display.innerHTML = "<p style='color:#888;margin-top:20px;'>Data tidak ditemukan.</p>";
-}
-
-}
-
-/* MENU MOBILE */
-function toggleMenu(){
-document.getElementById("nav-list").classList.toggle("show");
-}
-
-window.addEventListener("click",function(e){
-const menu=document.getElementById("nav-list");
-const toggle=document.getElementById("mobile-menu");
-
-if(!menu.contains(e.target) && !toggle.contains(e.target)){
-menu.classList.remove("show");
-}
-});
-</script>
-
-</body>
-</html>
