@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+   <meta name="google-adsense-account" content="ca-pub-5512413766339626">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cek Bantuan Sosial - RW 05</title>
-    
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     
     <style>
         /* --- CSS DASAR --- */
@@ -20,6 +18,7 @@
             flex-direction: column;
         }
         
+        /* HEADER: Full Width & Center Content */
         header {
             background:#ff7a00; 
             color:white; 
@@ -27,8 +26,7 @@
             position:sticky; 
             top:0; 
             z-index:1000; 
-            /* Shadow Oranye di Header */
-            box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             width: 100%;
         }
 
@@ -48,33 +46,30 @@
         nav ul li { margin-left:25px; }
         nav a { color:white; text-decoration:none; font-weight:bold; font-size: 15px; }
 
-        /* MENU GARIS 3: Ukuran diperbesar agar mudah diklik di HP */
-        .menu-toggle { 
+        .menu-toggle {
             display: none; 
-            font-size: 35px; 
+            font-size: 28px; 
             cursor: pointer; 
-            color: white; 
-            line-height: 1;
-            padding: 5px;
+            color: white;
         }
 
+        /* --- KONTEN PENCARIAN (CENTERED) --- */
         .search-wrapper {
             flex: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: flex-start; /* Mulai dari atas tapi tetap center */
             padding: 40px 20px;
             width: 100%;
         }
 
         .search-card {
             width: 100%;
-            max-width: 600px;
+            max-width: 600px; /* Ukuran lebih pas untuk dibaca */
             background: white;
             padding: 30px;
             border-radius: 20px;
-            /* Shadow Oranye di Kartu Utama */
-            box-shadow: 0 10px 30px rgba(255, 122, 0, 0.15); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
         }
 
@@ -83,7 +78,7 @@
 
         .input-group {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Vertikal di HP agar lebih rapi */
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -95,7 +90,7 @@
             border-radius: 12px;
             outline: none;
             font-size: 16px;
-            text-align: center;
+            text-align: center; /* Teks input di tengah */
         }
 
         input[type="text"]:focus { border-color: #ff7a00; }
@@ -114,16 +109,15 @@
         }
         .btn-search:hover { background: #e66e00; }
 
-        /* Tampilan Hasil Pencarian */
+        /* --- TAMPILAN HASIL --- */
         .result-item {
             background: #fff;
             padding: 20px;
             border-radius: 15px;
+            border: 1px solid #eee;
+            border-left: 6px solid #ff7a00;
             margin-top: 20px;
             text-align: left;
-            position: relative;
-            /* Shadow Oranye di Item Hasil */
-            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.15);
         }
 
         .info-grid {
@@ -131,11 +125,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
         }
 
-        .info-box span { display: block; font-size: 10px; color: #888; text-transform: uppercase; }
+        .info-box span { display: block; font-size: 10px; color: #888; }
         .info-box strong { font-size: 13px; color: #444; }
 
         .status-badge {
@@ -144,15 +136,17 @@
             border-radius: 20px;
             font-weight: bold;
             float: right;
-            color: white;
         }
+        .status-layak { background: #e6f9ed; color: #1db954; }
+        .status-tidak { background: #fdeaea; color: #e91e63; }
 
         footer{ background:#222; color:white; text-align:center; padding:25px; width: 100%; }
         .feth-text { font-size: 11px; opacity: 0.5; margin-top: 8px; }
 
-        /* --- RESPONSIVE MOBILE --- */
+        /* --- RESPONSIVE HP --- */
         @media(max-width: 768px) {
             .menu-toggle { display: block; }
+            
             nav ul {
                 display: none; 
                 flex-direction: column;
@@ -162,12 +156,15 @@
                 right: 0;
                 width: 100%;
                 z-index: 1001;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
+
             nav ul.show { display: flex; }
             nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
             nav ul li a { padding: 20px; display: block; text-align: center; }
-            .info-grid { grid-template-columns: 1fr; }
+
+            .search-wrapper { padding: 20px 15px; }
+            .search-card { padding: 25px 20px; }
         }
     </style>
 </head>
@@ -177,12 +174,14 @@
     <nav>
         <div class="logo-area">
             <img src="katar.png" alt="Logo">
-            <strong>Karang Taruna RW 05</strong>
+            <strong>RW 05 Digital</strong>
         </div>
+        
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
         <ul id="menu">
             <li><a href="index.html">Beranda</a></li>
-            <li><a href="index.html#kontak">Kontak</a></li>
+            <li><a href="index2.html#kontak">Kontak</a></li>
             <li><a href="index2.html">Layanan</a></li>
         </ul>
     </nav>
@@ -191,11 +190,11 @@
 <main class="search-wrapper">
     <div class="search-card">
         <h2>Cek Bantuan Sosial</h2>
-        <p>Silakan masukkan NIK lengkap Anda untuk melihat status bantuan.</p>
+        <p>Gunakan nama lengkap untuk melihat status bantuan pemerintah Anda di wilayah RW 05.</p>
         
         <div class="input-group">
-            <input type="text" id="inputCari" placeholder="Masukkan 16 digit NIK Anda...">
-            <button class="btn-search" onclick="cariData()">Cek Data Saya</button>
+            <input type="text" id="inputNama" placeholder="Contoh: Ahmad">
+            <button class="btn-search" onclick="cariBansos()">Cari Data</button>
         </div>
 
         <div id="hasilPencarian"></div>
@@ -208,86 +207,48 @@
 </footer>
 
 <script>
-    let dbBansos = [];
+    const dbBansos = [
+        {"Nama":"Ahmad","RT":"10","Status":"Layak","Jenis":"PKH","Nominal":"Rp 750.000","Penyaluran":"Sudah Cair","Ket":"Kategori Lansia"},
+        {"Nama":"Ilham","RT":"01","Status":"Tidak Layak","Jenis":"-","Nominal":"0","Penyaluran":"Dibatalkan","Ket":"Ekonomi Mampu"},
+        {"Nama":"Siti","RT":"10","Status":"Layak","Jenis":"BPNT","Nominal":"Rp 200.000","Penyaluran":"Proses","Ket":"Sembako"},
+        {"Nama":"Rizky","RT":"07","Status":"Layak","Jenis":"BLT Desa","Nominal":"Rp 300.000","Penyaluran":"Sudah Cair","Ket":"Dana Desa"},
+        {"Nama":"Agus","RT":"09","Status":"Layak","Jenis":"PKH","Nominal":"Rp 600.000","Penyaluran":"Sudah Cair","Ket":"Anak Sekolah"}
+    ];
 
-    // Fungsi Toggle Menu (Garis 3)
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        menu.classList.toggle('show');
-    }
-
-    // Memuat Database Bansos dari Excel
-    window.addEventListener('DOMContentLoaded', async () => {
-        try {
-            const response = await fetch('bansos.xlsx');
-            const arrayBuffer = await response.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            dbBansos = XLSX.utils.sheet_to_json(sheet);
-            console.log("Database Siap");
-        } catch (err) {
-            console.error("Gagal memuat database:", err);
-        }
-    });
-
-    // Fungsi Pencarian Data
-    function cariData() {
-        const input = document.getElementById("inputCari").value.trim();
+    function cariBansos() {
+        const input = document.getElementById("inputNama").value.toLowerCase();
         const display = document.getElementById("hasilPencarian");
         display.innerHTML = "";
 
-        if (!input) { alert("Silakan masukkan NIK!"); return; }
+        if(!input) { alert("Tulis nama Anda!"); return; }
 
-        // Filter NIK sama persis
-        const hasil = dbBansos.filter(data => 
-            data["Nik"] && data["Nik"].toString() === input
-        );
+        const hasil = dbBansos.filter(w => w.Nama.toLowerCase().includes(input));
 
-        if (hasil.length > 0) {
-            const sekarang = new Date();
-            const opsi = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-            const waktuWIB = sekarang.toLocaleDateString('id-ID', { ...opsi, timeZone: 'Asia/Jakarta' });
-
+        if(hasil.length > 0) {
             hasil.forEach(data => {
-                const layak = data["Status Kelayakan"] === "Layak";
-                const color = layak ? "#28a745" : "#dc3545";
-                
-                // Masking NIK untuk privasi
-                const nikStr = data["Nik"].toString();
-                const maskedNIK = nikStr.length > 10 ? nikStr.replace(/(\d{6})\d+(\d{4})/, "$1******$2") : nikStr;
-
+                const statusClass = data.Status === "Layak" ? "status-layak" : "status-tidak";
                 display.innerHTML += `
-                    <div class="result-item" style="border-left: 6px solid ${color}">
-                        <span class="status-badge" style="background: ${color}">
-                            ${(data["Status Kelayakan"] || 'TIDAK DIKETAHUI').toUpperCase()}
-                        </span>
-                        <h3 style="margin:0;">${data["Nama"]}</h3>
-                        <p style="font-size:12px; color:#777; margin: 5px 0; font-family: monospace;">NIK: ${maskedNIK}</p>
-                        
+                    <div class="result-item">
+                        <span class="status-badge ${statusClass}">${data.Status.toUpperCase()}</span>
+                        <h3 style="font-size:16px;">${data.Nama}</h3>
                         <div class="info-grid">
-                            <div class="info-box"><span>Jenis Bantuan</span><strong>${data["Jenis Bantuan"] || '-'}</strong></div>
-                            <div class="info-box"><span>Nominal</span><strong>Rp ${data["Nominal Bantuan"] || '0'}</strong></div>
-                            <div class="info-box"><span>Penyaluran</span><strong style="color:#ff7a00">${data["Status Penyaluran"] || '-'}</strong></div>
-                            <div class="info-box"><span>Wilayah</span><strong>RT ${data["RT"] || '00'}/RW ${data["RW"] || '00'}</strong></div>
+                            <div class="info-box"><span>Jenis</span><strong>${data.Jenis}</strong></div>
+                            <div class="info-box"><span>Dana</span><strong>${data.Nominal}</strong></div>
+                            <div class="info-box"><span>Penyaluran</span><strong style="color:#ff7a00">${data.Penyaluran}</strong></div>
+                            <div class="info-box"><span>RT</span><strong>${data.RT}</strong></div>
                         </div>
-                        
-                        <div style="margin-top:15px; padding-top:10px; border-top: 1px dashed #ddd; font-size: 10px; color: #999;">
-                            Dicari pada: ${waktuWIB} WIB
-                        </div>
-                        
-                        <p style="font-size:11px; color:#666; margin-top:5px; font-style:italic;">Ket: ${data["Keterangan"] || '-'}</p>
                     </div>
                 `;
             });
         } else {
-            display.innerHTML = `<p style="color:#dc3545; font-weight:bold; margin-top:20px;">Data tidak ditemukan. Pastikan 16 digit NIK benar.</p>`;
+            display.innerHTML = "<p style='color:red; margin-top:20px; font-size:14px;'>Data tidak ditemukan.</p>";
         }
     }
 
-    // Event Listener untuk tombol Enter
-    document.getElementById("inputCari").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") cariData();
-    });
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('show');
+    }
 </script>
+
 </body>
 </html>
