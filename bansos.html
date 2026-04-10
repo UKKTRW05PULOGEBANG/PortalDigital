@@ -1,271 +1,155 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Layanan Bansos RW 05</title>
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+body{
+    background:#f5f6f8;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
 
-    <style>
-        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body{ background:#f5f6f8; }
+/* HEADER */
+header{
+    background:#ff7a00;
+    color:white;
+    padding:10px 30px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 
-        /* HEADER */
-        header{
-            background:#ff7a00;
-            color:white;
-            padding:10px 30px;
-            position:sticky;
-            top:0;
-            z-index:1000;
-            box-shadow:0 2px 10px rgba(0,0,0,0.1);
-        }
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto;
+    width:100%;
+}
 
-        nav{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            max-width:1200px;
-            margin:0 auto;
-            width:100%;
-        }
+.logo-area{ display:flex; align-items:center; gap:10px; }
+.logo-area img{ height:60px; width:60px; border-radius:15px; background:white; }
 
-        .logo-area{ display:flex; align-items:center; gap:10px; }
-        .logo-area img{ height:60px; width:60px; border-radius:15px; background:white; }
-        
-        nav ul{ display:flex; list-style:none; }
-        nav ul li{ margin-left:25px; }
-        nav a{ color:white; text-decoration:none; font-weight:bold; font-size:15px; }
+nav ul{ display:flex; list-style:none; }
+nav ul li{ margin-left:25px; }
+nav a{ color:white; text-decoration:none; font-weight:bold; font-size:15px; }
 
-        .menu-toggle{ display:none; font-size:30px; cursor:pointer; color:white; }
+.menu-toggle{ display:none; font-size:30px; cursor:pointer; color:white; }
 
-        /* CONTENT */
-        .main{
+/* CONTENT */
+.main{
     flex:1;
     display:flex;
     justify-content:center;
     align-items:flex-start;
     padding:40px 20px;
-    width:100%;
 }
-        .container{
+
+.container{
     width:100%;
-    max-width:700px;
+    max-width:600px;
     background:white;
-    padding:35px;
+    padding:40px;
     border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
     text-align:center;
 }
 
-        h2{ color:#ff7a00; margin-bottom:10px; }
-        .subtitle{ color:#666; margin-bottom:25px; font-size: 14px; }
+h2{ color:#ff7a00; margin-bottom:10px; }
+.subtitle{ color:#666; margin-bottom:25px; font-size: 14px; }
 
-        input{
-            width:100%;
-            padding:15px;
-            border-radius:10px;
-            border:1px solid #ddd;
-            margin-bottom:20px;
-            font-size:14px;
-            outline: none;
-        }
-        input:focus { border-color: #ff7a00; }
-
-        button{
-            width:100%;
-            padding:15px;
-            background:#ff7a00;
-            border:none;
-            color:white;
-            font-weight:bold;
-            border-radius:10px;
-            cursor:pointer;
-            transition: 0.3s;
-        }
-        button:hover{ background:#e86e00; }
-
-        .result-item{
-            text-align:left;
-            background:#fff;
-            padding:20px;
-            margin-top:15px;
-            border-radius:12px;
-            border-left: 5px solid #ff7a00;
-            box-shadow:0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .footer{
-            background:#222;
-            color:white;
-            text-align:center;
-            padding:25px;
-            margin-top:40px;
-            font-size:14px;
-        }
-        .footer small{ display:block; margin-top:5px; color:#aaa; }
-
-        .loading{ margin-bottom:15px; color:#777; font-weight: bold; }
-
-        /* RESPONSIVE */
-        @media(max-width:768px){
-            .menu-toggle{ display:block; }
-            nav ul{
-                display:none;
-                flex-direction:column;
-                background:#ff7a00;
-                position:absolute;
-                top:80px;
-                right:0;
-                width:100%;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
-            }
-            nav ul.show{ display:flex; }
-            nav ul li{ margin:0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); }
-            nav ul li a{ padding:20px; display:block; }
-        }
-    </style>
-</head>
-
-<body>
-
-<header>
-    <nav>
-        <div class="logo-area">
-            <img src="katar.png" alt="Logo">
-            <strong>Karang Taruna RW 05</strong>
-        </div>
-        <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu()">☰</div>
-        <ul id="nav-list">
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="index.html#kontak">Kontak</a></li>
-            <li><a href="index10.html">Kembali</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="main">
-    <div class="container">
-        <h2>Cek Bantuan Sosial</h2>
-        <p class="subtitle">Masukkan NIK + 1 angka sebelum digit terakhir</p>
-
-        <div id="loader" class="loading">Memuat database...</div>
-
-        <input type="text" id="inputCari" 
-               placeholder="Contoh: 3175011010123+2 (Tanpa Menggunakan +)" 
-               onkeypress="if(event.key === 'Enter') cariData()">
-
-        <button onclick="cariData()">Cari Data</button>
-
-        <div id="hasilPencarian"></div>
-    </div>
-</div>
-
-<div class="footer">
-    © 2026 Unit Kerja Karang Taruna RW 05
-    <small>Sistem Informasi Bantuan Sosial Terpadu - Pulo Gebang</small>
-</div>
-
-<script>
-let dbBansos = [];
-
-/* LOAD EXCEL */
-window.addEventListener('DOMContentLoaded', async () => {
-    const loader = document.getElementById('loader');
-    try {
-        // Menggunakan fetch untuk membaca file excel
-        const response = await fetch('./bansos.xlsx');
-        if (!response.ok) throw new Error("File bansos.xlsx tidak ditemukan.");
-
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        dbBansos = XLSX.utils.sheet_to_json(sheet);
-
-        loader.innerHTML = "✅ Database Terhubung";
-        setTimeout(() => loader.style.display = 'none', 2000);
-    } catch (err) {
-        loader.innerHTML = "❌ Gagal memuat database Excel.";
-        console.error("Detail Error:", err);
-    }
-});
-
-/* FUNGSI PENCARIAN */
-function cariData() {
-    let input = document.getElementById("inputCari").value.trim();
-    const display = document.getElementById("hasilPencarian");
-    display.innerHTML = "";
-
-    if (!input) {
-        alert("Silakan masukkan NIK!");
-        return;
-    }
-
-    // 1. Bersihkan input dari karakter non-angka
-    let cleanInput = input.replace(/\D/g, '');
-
-    // 2. Skema: Hapus 1 angka terakhir (sebagai angka pengaman)
-    let searchTarget = cleanInput.slice(0, -1);
-
-    if (searchTarget === "") {
-        display.innerHTML = "<p style='color:red; margin-top:15px;'>Format NIK tidak valid.</p>";
-        return;
-    }
-
-    // 3. Cari di database (menggunakan 'Nik' sesuai kolom di Excel)
-    const hasil = dbBansos.filter(item => {
-        let nikDiExcel = item.Nik ? String(item.Nik).replace(/\D/g, '') : "";
-        return nikDiExcel === searchTarget;
-    });
-
-    if (hasil.length > 0) {
-        hasil.forEach(data => {
-            // Masking NIK untuk keamanan
-            let rawNIK = String(data.Nik);
-            const maskedNIK = rawNIK.length > 10 
-                ? rawNIK.replace(/(\d{6})\d+(\d{4})/, "$1******$2") 
-                : rawNIK;
-
-            display.innerHTML += `
-                <div class="result-item">
-                    <strong style="font-size: 18px; color: #333;">${data.Nama || 'Tanpa Nama'}</strong><br>
-                    <small style="color: #666;">NIK: ${maskedNIK}</small>
-                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
-                    <div style="font-size: 14px; line-height: 1.8;">
-                        <div>📍 <strong>RT:</strong> ${data.RT || '-'} / <strong>RW:</strong> ${data.RW || '-'}</div>
-                        <div>📋 <strong>Jenis Bantuan:</strong> <span style="color:#ff7a00; font-weight:bold;">${data['Jenis Bantuan'] || '-'}</span></div>
-                        <div>✅ <strong>Status:</strong> ${data['Status Kelayakan'] || '-'}</div>
-                        <div>🚚 <strong>Penyaluran:</strong> ${data['Status Penyaluran'] || '-'}</div>
-                    </div>
-                </div>
-            `;
-        });
-    } else {
-        display.innerHTML = `
-            <div style="margin-top:20px; padding: 15px; background: #fff1f1; border-radius: 10px; color: #d93025;">
-                <strong>Data tidak ditemukan.</strong><br>
-                <small style="color: #666;">Pastikan NIK benar dan telah menambahkan 1 angka tambahan di belakang.</small>
-            </div>
-        `;
-    }
+input{
+    width:100%;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+    font-size:14px;
+    outline: none;
 }
 
-/* MENU MOBILE */
-function toggleMenu(){
-    document.getElementById("nav-list").classList.toggle("show");
+input:focus { border-color: #ff7a00; }
+
+button{
+    width:100%;
+    padding:15px;
+    background:#ff7a00;
+    border:none;
+    color:white;
+    font-weight:bold;
+    border-radius:10px;
+    cursor:pointer;
+    transition: 0.3s;
 }
 
-// Tutup menu saat klik di luar
-window.addEventListener("click", function(e){
-    const menu = document.getElementById("nav-list");
-    const toggle = document.getElementById("mobile-menu");
-    if(!menu.contains(e.target) && !toggle.contains(e.target)){
-        menu.classList.remove("show");
-    }
-});
-</script>
+button:hover{ background:#e86e00; }
 
-</body>
-</html>
+.result-item{
+    text-align:left;
+    background:#fff;
+    padding:20px;
+    margin-top:15px;
+    border-radius:12px;
+    border-left: 5px solid #ff7a00;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:25px;
+    font-size:14px;
+    margin-top:auto;
+}
+
+.footer small{ display:block; margin-top:5px; color:#aaa; }
+
+.loading{ margin-bottom:15px; color:#777; font-weight: bold; }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    header{
+        padding:10px 15px;
+    }
+
+    .menu-toggle{ display:block; }
+
+    nav ul{
+        display:none;
+        flex-direction:column;
+        background:#ff7a00;
+        position:absolute;
+        top:80px;
+        right:0;
+        width:100%;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    }
+
+    nav ul.show{ display:flex; }
+
+    nav ul li{
+        margin:0;
+        text-align:center;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    nav ul li a{
+        padding:20px;
+        display:block;
+    }
+
+    .main{
+        padding:25px 15px;
+    }
+
+    .container{
+        padding:25px 20px;
+    }
+
+    .logo-area img{
+        height:50px;
+        width:50px;
+    }
+}
