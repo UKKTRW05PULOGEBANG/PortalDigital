@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi PPDB - Karang Taruna RW 05</title>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+        body{
+            line-height:1.6;
+            color:#333;
+            background:#f9f9f9; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+        }
+        
+        header {
+            background:#ff7a00; 
+            color:white; 
+            padding:10px 0; 
+            position:sticky; 
+            top:0; 
+            z-index:1000; 
+            box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
+            width: 100%;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .logo-area {display:flex; align-items:center; gap:10px;}
+        .logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
+        
+        nav ul {display:flex; list-style:none;}
+        nav ul li {margin-left:25px;}
+        nav a {color:white; text-decoration:none; font-weight:bold; font-size: 15px;}
+
+        .menu-toggle {
+            display: none; 
+            font-size: 35px; 
+            cursor: pointer; 
+            color: white;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align:center;
+        }
+
+        .info-box h1 {
+            color: #ff7a00;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* SEGERA HADIR */
+        .segera-hadir {
+            background: #fff3e0;
+            border: 2px dashed #ff7a00;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .segera-hadir h2 {
+            color: #ff7a00;
+            margin-bottom: 10px;
+            font-size:22px;
+        }
+
+        .segera-hadir p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer {
+            background:#222; 
+            color:white; 
+            text-align:center; 
+            padding:30px; 
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul {
+                display: none; 
+                flex-direction: column;
+                background: #ff7a00;
+                position: absolute;
+                top: 75px; 
+                right: 0;
+                width: 100%;
+            }
+            nav ul.show { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo-area">
+            <img src="katar.png" alt="Logo">
+            <strong>Karang Taruna RW 05</strong>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul id="menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index10.html">Kembali</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="main-container">
+    <div class="info-box">
+
+        <h1>PPDB 2026</h1>
+
+        <div class="segera-hadir">
+            <h2>🚧 Segera Hadir</h2>
+            <p>Informasi Penerimaan Peserta Didik Baru Tahun 2026</p>
+            <p>sedang dalam proses persiapan.</p>
+            <br>
+            <p>Silakan kunjungi kembali dalam waktu dekat.</p>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Unit Kerja Karang Taruna RW 05</p>
+<p class="feth-text">Portal Layanan Digital Terpadu - Pulo Gebang</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById('menu').classList.toggle('show');
+}
+</script>
+
+</body>
+</html>

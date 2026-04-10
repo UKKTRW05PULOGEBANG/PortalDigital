@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-   <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layanan Digital - Karang Taruna RW 05</title>
+    <title>Layanan Publik - Karang Taruna RW 05</title>
     
     <style>
         /* --- CSS DASAR --- */
@@ -18,7 +18,6 @@
             flex-direction: column;
         }
         
-        /* HEADER: Full Width & Sticky */
         header {
             background:#ff7a00; 
             color:white; 
@@ -26,7 +25,7 @@
             position:sticky; 
             top:0; 
             z-index:1000; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
             width: 100%;
         }
 
@@ -37,26 +36,23 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            position: relative;
         }
 
         .logo-area {display:flex; align-items:center; gap:10px;}
         .logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
         
-        /* MENU DESKTOP */
         nav ul {display:flex; list-style:none;}
         nav ul li {margin-left:25px;}
         nav a {color:white; text-decoration:none; font-weight:bold; font-size: 15px; transition: 0.3s;}
-        nav a:hover {opacity: 0.8;}
 
         .menu-toggle {
             display: none; 
-            font-size: 28px; 
+            font-size: 35px; 
             cursor: pointer; 
             color: white;
+            line-height: 1;
         }
 
-        /* --- LAYOUT GRID --- */
         .main-container {
             max-width: 1200px;
             margin: 40px auto;
@@ -64,28 +60,26 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            flex: 1; /* Mengisi ruang agar footer tetap di bawah */
+            flex: 1;
             width: 100%;
         }
 
-        /* STYLE KARTU */
         .service-card {
             background: white;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(255, 122, 0, 0.1);
             text-align: center;
             transition: 0.3s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(255, 122, 0, 0.2); }
         
-        .service-card h2 { color: #ff7a00; margin-bottom: 20px; font-size: 26px; }
-        .service-card p { font-size: 15px; color: #666; margin-bottom: 30px; min-height: 60px;}
+        .service-card h2 { color: #ff7a00; margin-bottom: 20px; font-size: 24px; }
+        .service-card p { font-size: 14px; color: #666; margin-bottom: 30px; min-height: 60px;}
         
-        /* TOMBOL */
         .btn-orange {
             width: 100%;
             padding: 15px;
@@ -100,9 +94,8 @@
             text-decoration: none;
             display: inline-block;
         }
-        .btn-orange:hover { background: #e66e00; box-shadow: 0 5px 15px rgba(255, 122, 0, 0.3); }
+        .btn-orange:hover { background: #e66e00; }
 
-        /* FOOTER: Full Width */
         footer {
             background:#222; 
             color:white; 
@@ -110,48 +103,25 @@
             padding:30px; 
             width: 100%;
         }
-        .feth-text { font-size: 11px; opacity: 0.6; margin-top: 10px; letter-spacing: 1px; }
+        .feth-text { font-size: 11px; opacity: 0.6; margin-top: 10px; }
 
-        /* --- RESPONSIVE MOBILE --- */
         @media(max-width: 768px) {
             .menu-toggle { display: block; }
-
             nav ul {
                 display: none; 
                 flex-direction: column;
                 background: #ff7a00;
                 position: absolute;
-                top: 70px; 
+                top: 75px; 
                 right: 0;
                 width: 100%;
                 z-index: 999;
                 box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
-
             nav ul.show { display: flex; }
-
-            nav ul li {
-                margin: 0;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-
-            nav ul li a {
-                padding: 20px;
-                display: block;
-                text-align: center;
-                width: 100%;
-            }
-
-            .main-container {
-                grid-template-columns: 1fr; 
-                margin: 20px auto;
-                padding: 0 15px;
-            }
-
-            .service-card {
-                padding: 25px;
-                max-width: 100%;
-            }
+            nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            nav ul li a { padding: 20px; display: block; text-align: center; }
+            .main-container { grid-template-columns: 1fr; margin: 20px auto; }
         }
     </style>
 </head>
@@ -163,13 +133,11 @@
             <img src="katar.png" alt="Logo">
             <strong>Karang Taruna RW 05</strong>
         </div>
-
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
         <ul id="menu">
             <li><a href="index.html">Beranda</a></li>
             <li><a href="index.html#berita">Berita</a></li>
-            <li><a href="index.html#kontak">Kontak</a></li>
+            <li><a href="index2.html">Kembali</a></li>
         </ul>
     </nav>
 </header>
@@ -177,32 +145,32 @@
 <main class="main-container">
     <div class="service-card">
         <div>
-            <h2>Informasi Warga</h2>
-            <p>Optimalisasi basis data warga dalam mendukung distribusi bansos dan layanan pendaftaran sekolah di wilayah RW 05.</p>
+            <h2>Status Bansos</h2>
+            <p>Cek ketersediaan dan status kelayakan bantuan sosial (Bansos) bagi warga RW 05 menggunakan NIK.</p>
         </div>
-        <a href="index10.html" class="btn-orange">Cari Sekarang</a>
+        <a href="bansos.html" class="btn-orange">Cek Sekarang</a>
     </div>
 
     <div class="service-card">
         <div>
-            <h2>Data Pengurus</h2>
-            <p>Lihat struktur organisasi dan daftar pengurus aktif Karang Taruna RW 05 Masa Bakti 2025.</p>
+            <h2>Pendaftaran SD-SMA</h2>
+            <p>Pusat informasi pendaftaran sekolah negeri/swasta tahun ajaran 2026/2027 untuk wilayah Pulo Gebang.</p>
         </div>
-        <a href="index4.html" class="btn-orange">Cari Sekarang</a>
+        <a href="index11.html" class="btn-orange">Daftar Sekarang</a>
     </div>
 
     <div class="service-card">
         <div>
-            <h2>Program Kerja</h2>
-            <p>Informasi detail mengenai rencana kegiatan, misi organisasi, dan laporan program kerja.</p>
+            <h2>Hasil Seleksi SNBP</h2>
+            <p>Pantau hasil seleksi Nasional Berdasarkan Prestasi (SNBP) untuk siswa berprestasi di lingkungan RW 05.</p>
         </div>
-        <a href="index5.html" class="btn-orange">Selanjutnya</a>
+        <a href="https://pengumuman-snbp.snpmb.id/" class="btn-orange">Lihat Hasil</a>
     </div>
 </main>
 
 <footer>
     <p>© 2026 Unit Kerja Karang Taruna RW 05</p>
-    <p class="feth-text">Portal Digital Terpadu RW 05 - Pulo Gebang</p>
+    <p class="feth-text">Portal Layanan Digital Terpadu - Pulo Gebang</p>
 </footer>
 
 <script>
@@ -211,7 +179,6 @@
         menu.classList.toggle('show');
     }
 
-    // Menutup menu saat link diklik (untuk kenyamanan mobile)
     document.querySelectorAll('#menu a').forEach(link => {
         link.addEventListener('click', () => {
             document.getElementById('menu').classList.remove('show');
