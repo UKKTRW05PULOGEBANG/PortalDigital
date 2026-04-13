@@ -90,6 +90,12 @@
         }
         input:focus { border-color: #ff7a00; background: #fff; box-shadow: 0 0 0 4px rgba(255,122,0,0.1); }
 
+        /* PERKECIL SIZE PLACEHOLDER */
+        input::placeholder {
+            font-size: 12px; /* Ukuran teks contoh diperkecil */
+            color: #aaa;
+        }
+
         button {
             width:100%;
             padding:16px;
@@ -104,7 +110,6 @@
             box-shadow: 0 4px 12px rgba(255,122,0,0.2);
         }
         button:hover { background:#e86e00; transform: translateY(-1px); }
-        button:active { transform: translateY(0); }
 
         /* HASIL PENCARIAN */
         .result-item {
@@ -131,14 +136,11 @@
             margin-top: 8px;
             color: #aaa;
             font-size: 12px;
-            letter-spacing: 0.3px;
         }
 
         .loading { margin-bottom:15px; color:#ff7a00; font-weight: bold; font-size: 14px; }
 
-        /* RESPONSIVE */
         @media(max-width:768px){
-            header { padding: 0 15px; }
             .menu-toggle { display:block; }
             nav ul {
                 display:none;
@@ -153,12 +155,11 @@
             nav ul.show { display:flex; }
             nav ul li { margin:0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); }
             nav ul li a { padding:18px; display:block; }
-
-            .main { padding: 20px 15px; }
-            .container { padding: 25px 20px; border-radius: 20px; }
-            h2 { font-size: 1.4rem; }
             
-            .footer { padding: 25px 15px; font-size: 13px; }
+            /* Placeholder lebih kecil lagi di HP jika perlu */
+            input::placeholder {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -183,13 +184,13 @@
 <div class="main">
     <div class="container">
         <h2>Cek Bantuan Sosial</h2>
-        <p class="subtitle">Masukkan NIK kemudian tambahkan 1 angka sebelum angka terakhir sebagai angka pengaman di digit terakhir.</p>
+        <p class="subtitle">Masukkan NIK kemudian tambahkan 1 angka bebas sebagai angka pengaman di digit terakhir.</p>
 
         <div id="loader" class="loading">Memuat database...</div>
 
         <div class="input-group">
             <input type="text" id="inputCari" 
-                   placeholder="Contoh: 3175011010123+2 (tanpa menggunakan +)" 
+                   placeholder="Contoh: 3175011010123001 (NIK) + 2" 
                    onkeypress="if(event.key === 'Enter') cariData()">
         </div>
 
@@ -207,7 +208,6 @@
 <script>
 let dbBansos = [];
 
-/* LOAD EXCEL */
 window.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     try {
@@ -226,7 +226,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-/* FUNGSI PENCARIAN */
 function cariData() {
     let input = document.getElementById("inputCari").value.trim();
     const display = document.getElementById("hasilPencarian");
@@ -284,14 +283,6 @@ function cariData() {
 function toggleMenu(){
     document.getElementById("nav-list").classList.toggle("show");
 }
-
-window.addEventListener("click", function(e){
-    const menu = document.getElementById("nav-list");
-    const toggle = document.getElementById("mobile-menu");
-    if(!menu.contains(e.target) && !toggle.contains(e.target)){
-        menu.classList.remove("show");
-    }
-});
 </script>
 
 </body>
