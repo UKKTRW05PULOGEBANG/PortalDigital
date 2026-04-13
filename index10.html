@@ -1,223 +1,251 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta name="google-adsense-account" content="ca-pub-5512413766339626">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layanan Publik - Karang Taruna RW 05</title>
+    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Publik - Karang Taruna RW 05</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{
-    line-height:1.6;
-    color:#333;
-    background:#f9f9f9; 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column;
-}
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+        }
 
-header {
-    background:#ff7a00; 
-    color:white; 
-    padding:10px 0; 
-    position:sticky; 
-    top:0; 
-    z-index:1000; 
-    box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
-    width: 100%;
-}
+        /* HEADER & NAV */
+        header {
+            background: #ff7a00; 
+            color: white; 
+            padding: 10px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
 
-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-}
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            height: 60px;
+        }
 
-.logo-area {display:flex; align-items:center; gap:10px;}
-.logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-area img { height: 50px; width: 50px; border-radius: 12px; background: white; object-fit: contain; }
+        .logo-area strong { font-size: 1.1rem; letter-spacing: 0.5px; }
 
-nav ul {display:flex; list-style:none;}
-nav ul li {margin-left:25px;}
-nav a {color:white; text-decoration:none; font-weight:bold; font-size: 15px;}
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin-left: 25px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; font-size: 15px; transition: 0.3s; }
+        nav a:hover { opacity: 0.8; }
 
-.menu-toggle {display:none;font-size:35px;cursor:pointer;color:white;}
+        .menu-toggle { display: none; font-size: 30px; cursor: pointer; color: white; }
 
-.main-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    flex: 1;
-}
+        /* MAIN CONTENT */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            flex: 1;
+            width: 100%;
+        }
 
-.service-card {
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(255,122,0,0.1);
-    text-align:center;
-    transition:0.3s;
-}
-.service-card:hover {transform:translateY(-10px);}
+        .service-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #eee;
+        }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(255,122,0,0.15); }
 
-.service-card h2 {color:#ff7a00;margin-bottom:20px;}
-.service-card p {font-size:14px;color:#666;margin-bottom:30px;}
+        .service-card h2 { color: #ff7a00; margin-bottom: 15px; font-size: 1.5rem; }
+        .service-card p { font-size: 14px; color: #666; margin-bottom: 25px; flex-grow: 1; }
 
-/* 🔥 PERBAIKAN TOMBOL */
-.btn-orange {
-    width:100%;
-    padding:15px;
-    background:#ff7a00;
-    color:white;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
-    display:inline-block;
-    text-align:center;
-    text-decoration:none; /* HILANGKAN GARIS */
-}
+        /* BUTTONS */
+        .btn-orange {
+            width: 100%;
+            padding: 14px;
+            background: #ff7a00;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-orange:hover { background: #e66e00; box-shadow: 0 4px 12px rgba(255,122,0,0.3); }
 
-.btn-orange:hover,
-.btn-orange:active,
-.btn-orange:visited {
-    text-decoration:none;
-    color:white;
-}
+        /* MODAL STYLE */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            padding: 20px;
+        }
 
-footer {
-    background:#222;
-    color:white;
-    text-align:center;
-    padding:30px;
-}
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            animation: slideDown 0.4s ease;
+        }
 
-/* ===== MODAL RT RW ===== */
-.modal {
-    display:none;
-    position:fixed;
-    z-index:2000;
-    left:0;top:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.5);
-}
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
-.modal-content {
-    background:white;
-    margin:8% auto;
-    padding:25px;
-    border-radius:15px;
-    width:90%;
-    max-width:700px;
-    position:relative;
-}
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
 
-.close {
-    position:absolute;
-    right:15px;
-    top:10px;
-    font-size:25px;
-    cursor:pointer;
-}
+        .grid-modal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
 
-.grid-modal {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-    margin-top:20px;
-}
+        .card-modal {
+            background: #fff8f2;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #ffe0c2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.card-modal {
-    background:#f9f9f9;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
-}
+        .card-modal h3 { color: #ff7a00; font-size: 17px; margin-bottom: 10px; }
+        .card-modal p { font-size: 13px; color: #555; margin-bottom: 15px; }
 
-.card-modal h3 {color:#ff7a00;font-size:16px;}
-.card-modal p {font-size:12px;color:#666;margin:10px 0;}
+        .card-modal a {
+            display: block;
+            padding: 10px;
+            background: #ff7a00;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
 
-.card-modal a {
-    display:inline-block;
-    padding:8px 12px;
-    background:#ff7a00;
-    color:white;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:13px;
-}
+        /* FOOTER */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+        .feth-text { color: #aaa; margin-top: 8px; font-size: 12px; }
 
-@media(max-width:768px){
-    .menu-toggle{display:block;}
-    nav ul{
-        display:none;
-        flex-direction:column;
-        background:#ff7a00;
-        position:absolute;
-        top:75px;
-        width:100%;
-    }
-    nav ul.show{display:flex;}
-}
-</style>
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: #ff7a00;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                padding: 10px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            nav ul.show { display: flex; }
+            nav ul li { margin: 0; width: 100%; }
+            nav ul li a { padding: 15px 30px; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            
+            .main-container { margin: 20px auto; gap: 20px; }
+            .modal-content { margin: 10% auto; padding: 20px; }
+            .logo-area strong { font-size: 1rem; }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-<nav>
-<div class="logo-area">
-<img src="katar.png">
-<strong>Karang Taruna RW 05</strong>
-</div>
+    <nav>
+        <div class="logo-area">
+            <img src="katar.png" alt="Logo">
+            <strong>Karang Taruna RW 05</strong>
+        </div>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-<ul id="menu">
-<li><a href="index.html">Beranda</a></li>
-<li><a href="index.html#berita">Berita</a></li>
-<li><a href="index2.html">Kembali</a></li>
-</ul>
-</nav>
+        <ul id="menu">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="index.html#berita">Berita</a></li>
+            <li><a href="index2.html">Kembali</a></li>
+        </ul>
+    </nav>
 </header>
 
 <main class="main-container">
 
-<!-- RT RW -->
-<div class="service-card">
-<div>
-<h2>Layanan RT & RW</h2>
-<p>Menyediakan akses terpadu untuk berbagai kebutuhan administrasi warga secara digital.
-Layanan ini dirancang untuk memberikan kemudahan, kecepatan, serta transparansi dalam setiap proses pengajuan dan pengelolaan data masyarakat.</p>
-</div>
-<button onclick="openRTRW()" class="btn-orange">Selengkapnya</button>
-</div>
+    <div class="service-card">
+        <div>
+            <h2>Layanan RT & RW</h2>
+            <p>Menyediakan akses terpadu untuk berbagai kebutuhan administrasi warga secara digital. Layanan ini dirancang untuk memberikan kemudahan, kecepatan, serta transparansi.</p>
+        </div>
+        <button onclick="openRTRW()" class="btn-orange">Selengkapnya</button>
+    </div>
 
-<!-- SD SMA -->
-<div class="service-card">
-<div>
-<h2>Pendaftaran SD-SMA</h2>
-<p>Menyajikan informasi resmi dan terintegrasi terkait proses penerimaan peserta didik baru.
-Mempermudah masyarakat dalam mengakses persyaratan, jadwal, serta prosedur pendaftaran secara sistematis dan akurat.</p>
-</div>
-<a href="index11.html" class="btn-orange">Selengkapnya</a>
-</div>
+    <div class="service-card">
+        <div>
+            <h2>Pendaftaran SD-SMA</h2>
+            <p>Menyajikan informasi resmi terkait proses penerimaan peserta didik baru (PPDB). Mempermudah warga dalam mengakses persyaratan dan jadwal pendaftaran.</p>
+        </div>
+        <a href="index11.html" class="btn-orange">Selengkapnya</a>
+    </div>
 
-<!-- SNBP -->
-<div class="service-card">
-<div>
-<h2>Hasil SNBP</h2>
-<p>Memberikan akses informasi hasil seleksi nasional secara cepat dan terpercaya.
-Memastikan setiap peserta dapat memantau hasil seleksi dengan mudah sebagai bagian dari proses menuju jenjang pendidikan yang lebih tinggi.</p>
-</div>
-<a href="https://pengumuman-snbp.snpmb.id/" class="btn-orange">Selengkapnya</a>
-</div>
+    <div class="service-card">
+        <div>
+            <h2>Hasil SNBP</h2>
+            <p>Memberikan akses informasi hasil seleksi nasional masuk perguruan tinggi secara cepat. Pastikan Anda memantau hasil seleksi melalui link resmi.</p>
+        </div>
+        <a href="https://pengumuman-snbp.snpmb.id/" target="_blank" class="btn-orange">Selengkapnya</a>
+    </div>
 
 </main>
 
@@ -226,53 +254,56 @@ Memastikan setiap peserta dapat memantau hasil seleksi dengan mudah sebagai bagi
     <p class="feth-text">Portal Layanan Digital Terpadu - Pulo Gebang</p>
 </footer>
 
-<!-- ===== POPUP RT RW ===== -->
 <div id="modalRTRW" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeRTRW()">&times;</span>
-<h2 style="text-align:center;color:#ff7a00;">Layanan RT & RW</h2>
+    <div class="modal-content">
+        <span class="close" onclick="closeRTRW()">&times;</span>
+        <h2 style="text-align:center; color:#ff7a00; margin-bottom:10px;">Layanan RT & RW</h2>
+        <p style="text-align:center; font-size:14px; color:#666;">Silakan pilih jenis layanan administrasi di bawah ini:</p>
 
-<div class="grid-modal">
+        <div class="grid-modal">
+            <div class="card-modal">
+                <h3>Form Surat</h3>
+                <p>Pengajuan surat secara daring untuk kebutuhan administrasi warga secara cepat dan tertib.</p>
+                <a href="#">Buka Form</a>
+            </div>
 
-<div class="card-modal">
-<h3>Form Surat</h3>
-<p>Layanan pengajuan surat secara daring untuk memenuhi kebutuhan administrasi warga secara cepat, tertib, dan terdokumentasi dengan baik.</p>
-<a href="#">Selengkapnya</a>
-</div>
+            <div class="card-modal">
+                <h3>Cek Bansos</h3>
+                <p>Verifikasi status penerimaan bantuan sosial sesuai dengan data DTKS yang terdaftar.</p>
+                <a href="bansos.html">Cek Data</a>
+            </div>
 
-<div class="card-modal">
-<h3>Cek Bansos</h3>
-<p>Layanan verifikasi status penerimaan bantuan sosial secara akurat dan transparan sesuai dengan data yang telah terdaftar.</p>
-<a href="bansos.html">Selengkapnya</a>
-</div>
-
-<div class="card-modal">
-<h3>Tracking Surat</h3>
-<p>Fitur pemantauan proses pengajuan surat secara real-time untuk memastikan transparansi dan kepastian layanan administrasi.</p>
-<a href="#">Selengkapnya</a>
-</div>
-
-</div>
-</div>
+            <div class="card-modal">
+                <h3>Tracking Surat</h3>
+                <p>Pantau proses pengajuan surat Anda secara real-time untuk kepastian layanan.</p>
+                <a href="#">Pantau Surat</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-function toggleMenu(){
-document.getElementById('menu').classList.toggle('show');
-}
+    function toggleMenu(){
+        document.getElementById('menu').classList.toggle('show');
+    }
 
-function openRTRW(){
-document.getElementById('modalRTRW').style.display='block';
-}
+    function openRTRW(){
+        document.getElementById('modalRTRW').style.display='block';
+        document.body.style.overflow = 'hidden'; // Kunci scroll layar saat modal buka
+    }
 
-function closeRTRW(){
-document.getElementById('modalRTRW').style.display='none';
-}
+    function closeRTRW(){
+        document.getElementById('modalRTRW').style.display='none';
+        document.body.style.overflow = 'auto'; // Aktifkan kembali scroll
+    }
 
-window.onclick=function(e){
-let modal=document.getElementById('modalRTRW');
-if(e.target==modal){modal.style.display='none';}
-}
+    // Menutup modal jika klik di luar area modal
+    window.onclick = function(e){
+        let modal = document.getElementById('modalRTRW');
+        if(e.target == modal){
+            closeRTRW();
+        }
+    }
 </script>
 
 </body>
