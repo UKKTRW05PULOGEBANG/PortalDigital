@@ -1,171 +1,224 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta name="google-adsense-account" content="ca-pub-5512413766339626">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layanan Publik - Karang Taruna RW 05</title>
-    
-    <style>
-        /* --- CSS DASAR --- */
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-        body{
-            line-height:1.6;
-            color:#333;
-            background:#f9f9f9; 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-        }
-        
-        header {
-            background:#ff7a00; 
-            color:white; 
-            padding:10px 0; 
-            position:sticky; 
-            top:0; 
-            z-index:1000; 
-            box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
-            width: 100%;
-        }
+<meta name="google-adsense-account" content="ca-pub-5512413766339626">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layanan Publik - Karang Taruna RW 05</title>
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{
+    line-height:1.6;
+    color:#333;
+    background:#f9f9f9; 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column;
+}
 
-        .logo-area {display:flex; align-items:center; gap:10px;}
-        .logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
-        
-        nav ul {display:flex; list-style:none;}
-        nav ul li {margin-left:25px;}
-        nav a {color:white; text-decoration:none; font-weight:bold; font-size: 15px; transition: 0.3s;}
+header {
+    background:#ff7a00; 
+    color:white; 
+    padding:10px 0; 
+    position:sticky; 
+    top:0; 
+    z-index:1000; 
+    box-shadow: 0 2px 10px rgba(255, 122, 0, 0.3);
+    width: 100%;
+}
 
-        .menu-toggle {
-            display: none; 
-            font-size: 35px; 
-            cursor: pointer; 
-            color: white;
-            line-height: 1;
-        }
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
 
-        .main-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            flex: 1;
-            width: 100%;
-        }
+.logo-area {display:flex; align-items:center; gap:10px;}
+.logo-area img {height:60px; width:60px; border-radius:15px; background: white;}
 
-        .service-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(255, 122, 0, 0.1);
-            text-align: center;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(255, 122, 0, 0.2); }
-        
-        .service-card h2 { color: #ff7a00; margin-bottom: 20px; font-size: 24px; }
-        .service-card p { font-size: 14px; color: #666; margin-bottom: 30px; min-height: 60px;}
-        
-        .btn-orange {
-            width: 100%;
-            padding: 15px;
-            background: #ff7a00;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-orange:hover { background: #e66e00; }
+nav ul {display:flex; list-style:none;}
+nav ul li {margin-left:25px;}
+nav a {color:white; text-decoration:none; font-weight:bold; font-size: 15px;}
 
-        footer {
-            background:#222; 
-            color:white; 
-            text-align:center; 
-            padding:30px; 
-            width: 100%;
-        }
-        .feth-text { font-size: 11px; opacity: 0.6; margin-top: 10px; }
+.menu-toggle {display:none;font-size:35px;cursor:pointer;color:white;}
 
-        @media(max-width: 768px) {
-            .menu-toggle { display: block; }
-            nav ul {
-                display: none; 
-                flex-direction: column;
-                background: #ff7a00;
-                position: absolute;
-                top: 75px; 
-                right: 0;
-                width: 100%;
-                z-index: 999;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-            }
-            nav ul.show { display: flex; }
-            nav ul li { margin: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            nav ul li a { padding: 20px; display: block; text-align: center; }
-            .main-container { grid-template-columns: 1fr; margin: 20px auto; }
-        }
-    </style>
+.main-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    flex: 1;
+}
+
+.service-card {
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(255,122,0,0.1);
+    text-align:center;
+    transition:0.3s;
+}
+.service-card:hover {transform:translateY(-10px);}
+
+.service-card h2 {color:#ff7a00;margin-bottom:20px;}
+.service-card p {font-size:14px;color:#666;margin-bottom:30px;}
+
+/* 🔥 PERBAIKAN TOMBOL */
+.btn-orange {
+    width:100%;
+    padding:15px;
+    background:#ff7a00;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    display:inline-block;
+    text-align:center;
+    text-decoration:none; /* HILANGKAN GARIS */
+}
+
+.btn-orange:hover,
+.btn-orange:active,
+.btn-orange:visited {
+    text-decoration:none;
+    color:white;
+}
+
+footer {
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+/* ===== MODAL RT RW ===== */
+.modal {
+    display:none;
+    position:fixed;
+    z-index:2000;
+    left:0;top:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background:white;
+    margin:8% auto;
+    padding:25px;
+    border-radius:15px;
+    width:90%;
+    max-width:700px;
+    position:relative;
+}
+
+.close {
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.grid-modal {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+.card-modal {
+    background:#f9f9f9;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.card-modal h3 {color:#ff7a00;font-size:16px;}
+.card-modal p {font-size:12px;color:#666;margin:10px 0;}
+
+.card-modal a {
+    display:inline-block;
+    padding:8px 12px;
+    background:#ff7a00;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:13px;
+}
+
+@media(max-width:768px){
+    .menu-toggle{display:block;}
+    nav ul{
+        display:none;
+        flex-direction:column;
+        background:#ff7a00;
+        position:absolute;
+        top:75px;
+        width:100%;
+    }
+    nav ul.show{display:flex;}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <nav>
-        <div class="logo-area">
-            <img src="katar.png" alt="Logo">
-            <strong>Karang Taruna RW 05</strong>
-        </div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        <ul id="menu">
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="index.html#berita">Berita</a></li>
-            <li><a href="index2.html">Kembali</a></li>
-        </ul>
-    </nav>
+<nav>
+<div class="logo-area">
+<img src="katar.png">
+<strong>Karang Taruna RW 05</strong>
+</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<ul id="menu">
+<li><a href="index.html">Beranda</a></li>
+<li><a href="index.html#berita">Berita</a></li>
+<li><a href="index2.html">Kembali</a></li>
+</ul>
+</nav>
 </header>
 
 <main class="main-container">
-    <div class="service-card">
-        <div>
-            <h2>Status Bansos</h2>
-            <p>Cek ketersediaan dan status kelayakan bantuan sosial (Bansos) bagi warga RW 05 menggunakan NIK.</p>
-        </div>
-        <a href="bansos.html" class="btn-orange">Cek Sekarang</a>
-    </div>
 
-    <div class="service-card">
-        <div>
-            <h2>Pendaftaran SD-SMA</h2>
-            <p>Pusat informasi pendaftaran sekolah negeri/swasta tahun ajaran 2026/2027 untuk wilayah Pulo Gebang.</p>
-        </div>
-        <a href="index11.html" class="btn-orange">Daftar Sekarang</a>
-    </div>
+<!-- RT RW -->
+<div class="service-card">
+<div>
+<h2>Layanan RT & RW</h2>
+<p>Menyediakan akses terpadu untuk berbagai kebutuhan administrasi warga secara digital.
+Layanan ini dirancang untuk memberikan kemudahan, kecepatan, serta transparansi dalam setiap proses pengajuan dan pengelolaan data masyarakat.</p>
+</div>
+<button onclick="openRTRW()" class="btn-orange">Selengkapnya</button>
+</div>
 
-    <div class="service-card">
-        <div>
-            <h2>Hasil Seleksi SNBP</h2>
-            <p>Pantau hasil seleksi Nasional Berdasarkan Prestasi (SNBP) untuk siswa berprestasi di lingkungan RW 05.</p>
-        </div>
-        <a href="https://pengumuman-snbp.snpmb.id/" class="btn-orange">Lihat Hasil</a>
-    </div>
+<!-- SD SMA -->
+<div class="service-card">
+<div>
+<h2>Pendaftaran SD-SMA</h2>
+<p>Menyajikan informasi resmi dan terintegrasi terkait proses penerimaan peserta didik baru.
+Mempermudah masyarakat dalam mengakses persyaratan, jadwal, serta prosedur pendaftaran secara sistematis dan akurat.</p>
+</div>
+<a href="index11.html" class="btn-orange">Selengkapnya</a>
+</div>
+
+<!-- SNBP -->
+<div class="service-card">
+<div>
+<h2>Hasil SNBP</h2>
+<p>Memberikan akses informasi hasil seleksi nasional secara cepat dan terpercaya.
+Memastikan setiap peserta dapat memantau hasil seleksi dengan mudah sebagai bagian dari proses menuju jenjang pendidikan yang lebih tinggi.</p>
+</div>
+<a href="https://pengumuman-snbp.snpmb.id/" class="btn-orange">Selengkapnya</a>
+</div>
+
 </main>
 
 <footer>
@@ -173,17 +226,53 @@
     <p class="feth-text">Portal Layanan Digital Terpadu - Pulo Gebang</p>
 </footer>
 
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        menu.classList.toggle('show');
-    }
+<!-- ===== POPUP RT RW ===== -->
+<div id="modalRTRW" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeRTRW()">&times;</span>
+<h2 style="text-align:center;color:#ff7a00;">Layanan RT & RW</h2>
 
-    document.querySelectorAll('#menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('menu').classList.remove('show');
-        });
-    });
+<div class="grid-modal">
+
+<div class="card-modal">
+<h3>Form Surat</h3>
+<p>Layanan pengajuan surat secara daring untuk memenuhi kebutuhan administrasi warga secara cepat, tertib, dan terdokumentasi dengan baik.</p>
+<a href="#">Selengkapnya</a>
+</div>
+
+<div class="card-modal">
+<h3>Cek Bansos</h3>
+<p>Layanan verifikasi status penerimaan bantuan sosial secara akurat dan transparan sesuai dengan data yang telah terdaftar.</p>
+<a href="bansos.html">Selengkapnya</a>
+</div>
+
+<div class="card-modal">
+<h3>Tracking Surat</h3>
+<p>Fitur pemantauan proses pengajuan surat secara real-time untuk memastikan transparansi dan kepastian layanan administrasi.</p>
+<a href="#">Selengkapnya</a>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+function toggleMenu(){
+document.getElementById('menu').classList.toggle('show');
+}
+
+function openRTRW(){
+document.getElementById('modalRTRW').style.display='block';
+}
+
+function closeRTRW(){
+document.getElementById('modalRTRW').style.display='none';
+}
+
+window.onclick=function(e){
+let modal=document.getElementById('modalRTRW');
+if(e.target==modal){modal.style.display='none';}
+}
 </script>
 
 </body>
