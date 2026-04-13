@@ -183,13 +183,13 @@
 <div class="main">
     <div class="container">
         <h2>Cek Bantuan Sosial</h2>
-        <p class="subtitle">Masukkan NIK kemudian tambahkan 1 angka bebas sebagai angka pengaman di digit terakhir.</p>
+        <p class="subtitle">Masukkan NIK kemudian tambahkan 1 angka sebelum angka terakhir sebagai angka pengaman di digit terakhir.</p>
 
         <div id="loader" class="loading">Memuat database...</div>
 
         <div class="input-group">
             <input type="text" id="inputCari" 
-                   placeholder="Contoh: 3175011010123001 (NIK) + 2" 
+                   placeholder="Contoh: 3175011010123+2 (tanpa menggunakan +)" 
                    onkeypress="if(event.key === 'Enter') cariData()">
         </div>
 
