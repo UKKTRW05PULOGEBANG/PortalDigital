@@ -8,21 +8,30 @@
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <style>
-        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body{ background:#f5f6f8; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { 
+            background:#f8f9fa; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
         /* HEADER */
-        header{
+        header {
             background:#ff7a00;
             color:white;
-            padding:10px 30px;
+            padding:0 20px;
             position:sticky;
             top:0;
             z-index:1000;
             box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            height: 70px;
+            display: flex;
+            align-items: center;
         }
 
-        nav{
+        nav {
             display:flex;
             justify-content:space-between;
             align-items:center;
@@ -31,107 +40,125 @@
             width:100%;
         }
 
-        .logo-area{ display:flex; align-items:center; gap:10px; }
-        .logo-area img{ height:60px; width:60px; border-radius:15px; background:white; }
+        .logo-area { display:flex; align-items:center; gap:12px; }
+        .logo-area img { height:50px; width:50px; border-radius:12px; background:white; object-fit: contain; }
+        .logo-area strong { font-size: 1.1rem; letter-spacing: 0.5px; }
         
-        nav ul{ display:flex; list-style:none; }
-        nav ul li{ margin-left:25px; }
-        nav a{ color:white; text-decoration:none; font-weight:bold; font-size:15px; }
+        nav ul { display:flex; list-style:none; }
+        nav ul li { margin-left:25px; }
+        nav a { color:white; text-decoration:none; font-weight:bold; font-size:15px; transition: 0.3s; }
+        nav a:hover { opacity: 0.8; }
 
-        .menu-toggle{ display:none; font-size:30px; cursor:pointer; color:white; }
+        .menu-toggle { display:none; font-size:30px; cursor:pointer; color:white; }
 
         /* CONTENT */
-        .main{ display:flex; justify-content:center; align-items:center; padding:60px 20px; }
-        .container{
+        .main { 
+            flex: 1;
+            display:flex; 
+            justify-content:center; 
+            align-items: flex-start; 
+            padding: 40px 20px; 
+        }
+
+        .container {
             width:100%;
-            max-width:600px;
+            max-width:550px;
             background:white;
-            padding:40px;
-            border-radius:20px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.1);
+            padding:35px;
+            border-radius:24px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.05);
             text-align:center;
         }
 
-        h2{ color:#ff7a00; margin-bottom:10px; }
-        .subtitle{ color:#666; margin-bottom:25px; font-size: 14px; }
+        h2 { color:#ff7a00; margin-bottom:12px; font-size: 1.6rem; }
+        .subtitle { color:#6c757d; margin-bottom:30px; font-size: 14px; line-height: 1.4; }
 
-        input{
-            width:100%;
-            padding:15px;
-            border-radius:10px;
-            border:1px solid #ddd;
-            margin-bottom:20px;
-            font-size:14px;
-            outline: none;
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
-        input:focus { border-color: #ff7a00; }
 
-        button{
+        input {
             width:100%;
-            padding:15px;
+            padding:16px;
+            border-radius:12px;
+            border:2px solid #eee;
+            font-size:15px;
+            outline: none;
+            transition: 0.3s;
+            background: #fdfdfd;
+        }
+        input:focus { border-color: #ff7a00; background: #fff; box-shadow: 0 0 0 4px rgba(255,122,0,0.1); }
+
+        button {
+            width:100%;
+            padding:16px;
             background:#ff7a00;
             border:none;
             color:white;
             font-weight:bold;
-            border-radius:10px;
+            font-size: 16px;
+            border-radius:12px;
             cursor:pointer;
             transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(255,122,0,0.2);
         }
-        button:hover{ background:#e86e00; }
+        button:hover { background:#e86e00; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
 
-        .result-item{
+        /* HASIL PENCARIAN */
+        .result-item {
             text-align:left;
-            background:#fff;
+            background:#fff8f2;
             padding:20px;
-            margin-top:15px;
-            border-radius:12px;
-            border-left: 5px solid #ff7a00;
-            box-shadow:0 4px 12px rgba(0,0,0,0.05);
+            margin-top:20px;
+            border-radius:16px;
+            border: 1px solid #ffe0c2;
+            border-left: 6px solid #ff7a00;
         }
 
-        /* FOOTER - Diperbarui agar rapi di HP */
+        /* FOOTER */
         .footer {
             background: #222;
             color: white;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
+            padding: 35px 20px;
+            margin-top: auto;
             font-size: 14px;
-            line-height: 1.6;
         }
         .footer small {
             display: block;
-            margin-top: 10px;
+            margin-top: 8px;
             color: #aaa;
             font-size: 12px;
+            letter-spacing: 0.3px;
         }
 
-        .loading{ margin-bottom:15px; color:#777; font-weight: bold; }
+        .loading { margin-bottom:15px; color:#ff7a00; font-weight: bold; font-size: 14px; }
 
         /* RESPONSIVE */
         @media(max-width:768px){
-            .menu-toggle{ display:block; }
-            nav ul{
+            header { padding: 0 15px; }
+            .menu-toggle { display:block; }
+            nav ul {
                 display:none;
                 flex-direction:column;
                 background:#ff7a00;
                 position:absolute;
-                top:80px;
+                top:70px;
                 right:0;
                 width:100%;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
-            nav ul.show{ display:flex; }
-            nav ul li{ margin:0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); }
-            nav ul li a{ padding:20px; display:block; }
+            nav ul.show { display:flex; }
+            nav ul li { margin:0; text-align:center; border-bottom:1px solid rgba(255,255,255,0.1); }
+            nav ul li a { padding:18px; display:block; }
 
-            .footer {
-                font-size: 13px;
-                padding: 25px 15px;
-            }
-            .footer small {
-                font-size: 11px;
-            }
+            .main { padding: 20px 15px; }
+            .container { padding: 25px 20px; border-radius: 20px; }
+            h2 { font-size: 1.4rem; }
+            
+            .footer { padding: 25px 15px; font-size: 13px; }
         }
     </style>
 </head>
@@ -156,13 +183,15 @@
 <div class="main">
     <div class="container">
         <h2>Cek Bantuan Sosial</h2>
-        <p class="subtitle">Masukkan NIK + 1 angka sebelum digit terakhir</p>
+        <p class="subtitle">Masukkan NIK kemudian tambahkan 1 angka bebas sebagai angka pengaman di digit terakhir.</p>
 
         <div id="loader" class="loading">Memuat database...</div>
 
-        <input type="text" id="inputCari" 
-               placeholder="Contoh: 3175011010123+2 (Tanpa Menggunakan +)" 
-               onkeypress="if(event.key === 'Enter') cariData()">
+        <div class="input-group">
+            <input type="text" id="inputCari" 
+                   placeholder="Contoh: 3175011010123001 (NIK) + 2" 
+                   onkeypress="if(event.key === 'Enter') cariData()">
+        </div>
 
         <button onclick="cariData()">Cari Data</button>
 
@@ -183,11 +212,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('loader');
     try {
         const response = await fetch('./bansos.xlsx');
-        if (!response.ok) throw new Error("File bansos.xlsx tidak ditemukan.");
+        if (!response.ok) throw new Error("File tidak ditemukan.");
 
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         dbBansos = XLSX.utils.sheet_to_json(sheet);
 
@@ -195,7 +223,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         setTimeout(() => loader.style.display = 'none', 2000);
     } catch (err) {
         loader.innerHTML = "❌ Gagal memuat database Excel.";
-        console.error("Detail Error:", err);
     }
 });
 
@@ -210,18 +237,14 @@ function cariData() {
         return;
     }
 
-    // 1. Ambil hanya angka
     let cleanInput = input.replace(/\D/g, '');
-
-    // 2. Skema: Hapus 1 angka terakhir
     let searchTarget = cleanInput.slice(0, -1);
 
     if (searchTarget === "") {
-        display.innerHTML = "<p style='color:red; margin-top:15px;'>Format NIK tidak valid.</p>";
+        display.innerHTML = "<p style='color:#d93025; margin-top:15px; font-weight:bold;'>Format NIK tidak valid.</p>";
         return;
     }
 
-    // 3. Cari di database (menggunakan 'Nik' sesuai kolom di Excel)
     const hasil = dbBansos.filter(item => {
         let nikDiExcel = item.Nik ? String(item.Nik).replace(/\D/g, '') : "";
         return nikDiExcel === searchTarget;
@@ -238,9 +261,9 @@ function cariData() {
                 <div class="result-item">
                     <strong style="font-size: 18px; color: #333;">${data.Nama || 'Tanpa Nama'}</strong><br>
                     <small style="color: #666;">NIK: ${maskedNIK}</small>
-                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+                    <hr style="margin: 12px 0; border: 0; border-top: 1px solid #ffe0c2;">
                     <div style="font-size: 14px; line-height: 1.8;">
-                        <div>📍 <strong>RT:</strong> ${data.RT || '-'} / <strong>RW:</strong> ${data.RW || '-'}</div>
+                        <div>📍 <strong>RT/RW:</strong> ${data.RT || '-'}/${data.RW || '-'}</div>
                         <div>📋 <strong>Jenis Bantuan:</strong> <span style="color:#ff7a00; font-weight:bold;">${data['Jenis Bantuan'] || '-'}</span></div>
                         <div>✅ <strong>Status:</strong> ${data['Status Kelayakan'] || '-'}</div>
                         <div>🚚 <strong>Penyaluran:</strong> ${data['Status Penyaluran'] || '-'}</div>
@@ -250,15 +273,14 @@ function cariData() {
         });
     } else {
         display.innerHTML = `
-            <div style="margin-top:20px; padding: 15px; background: #fff1f1; border-radius: 10px; color: #d93025;">
+            <div style="margin-top:20px; padding: 20px; background: #fff1f1; border-radius: 12px; color: #d93025; border: 1px solid #ffdada;">
                 <strong>Data tidak ditemukan.</strong><br>
-                <small style="color: #666;">Pastikan NIK benar dan telah menambahkan 1 angka tambahan di belakang.</small>
+                <small style="color: #666;">Pastikan NIK benar dan tambahkan 1 angka pengaman di akhir.</small>
             </div>
         `;
     }
 }
 
-/* MENU MOBILE */
 function toggleMenu(){
     document.getElementById("nav-list").classList.toggle("show");
 }
